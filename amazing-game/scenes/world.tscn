@@ -1,8 +1,16 @@
 [gd_scene format=3 uid="uid://dqj8oypchmnag"]
 
 [ext_resource type="PackedScene" uid="uid://b65jgvaki42my" path="res://modules/player/player.tscn" id="1_nnsk1"]
+[ext_resource type="PackedScene" uid="uid://dyy8y5xftvvi3" path="res://modules/wall/wall.tscn" id="2_rwgxs"]
+[ext_resource type="Script" uid="uid://bmt4rrbbbby3w" path="res://scenes/circle.gd" id="3_4wyf3"]
 
 [node name="World" type="Node2D" unique_id=345513547]
 
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1396958463]
+
 [node name="Player" parent="." unique_id=325968683 instance=ExtResource("1_nnsk1")]
-position = Vector2(557, 354)
+
+[node name="Wall" parent="." unique_id=858099970 instance=ExtResource("2_rwgxs")]
+
+[node name="Circle" type="Node2D" parent="." unique_id=2028538421]
+script = ExtResource("3_4wyf3")

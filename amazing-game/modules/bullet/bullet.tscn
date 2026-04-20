@@ -2,9 +2,19 @@
 
 [ext_resource type="Script" uid="uid://yscqvag6rypt" path="res://modules/bullet/bullet.gd" id="1_iua24"]
 
-[node name="Bullet" type="RigidBody2D" unique_id=1108871860]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_iua24"]
+size = Vector2(40, 16)
+
+[node name="Bullet" type="RigidBody2D" unique_id=1108871860 groups=["bullet"]]
+collision_layer = 4
+collision_mask = 2
 gravity_scale = 0.0
 script = ExtResource("1_iua24")
 
 [node name="Polygon2D" type="Polygon2D" parent="." unique_id=1947783675]
-polygon = PackedVector2Array(-32, -16, -32, 16, 32, 16, 32, -16)
+color = Color(1, 0.802, 0.33999997, 1)
+polygon = PackedVector2Array(-16, -8, -16, 8, 24, 8, 24, -8)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1026906252]
+position = Vector2(4, 0)
+shape = SubResource("RectangleShape2D_iua24")

@@ -18,7 +18,7 @@ func _physics_process(delta: float) -> void:
 	var vector = Input.get_vector("ui_left","ui_right","ui_up","ui_down")
 	vector.normalized()
 	
-	linear_velocity += vector * speed
+	linear_velocity = vector * speed
 	
 	# note: "left_mouse" is an input set in Project>Project settings>Input map
 	if Input.is_action_just_pressed("left_mouse"):

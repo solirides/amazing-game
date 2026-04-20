@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://dyy8y5xftvvi3"]
+
+[ext_resource type="Script" uid="uid://b04shiiclxmgo" path="res://modules/wall/wall.gd" id="1_mgm2i"]
+[ext_resource type="Texture2D" uid="uid://wr8lqm38ij8g" path="res://icon.svg" id="2_gcmdx"]
+
+[node name="Wall" type="RigidBody2D" unique_id=1220276422]
+collision_layer = 2
+collision_mask = 7
+gravity_scale = 0.0
+freeze = true
+freeze_mode = 1
+contact_monitor = true
+max_contacts_reported = 5
+script = ExtResource("1_mgm2i")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=45151107]
+visible = false
+texture = ExtResource("2_gcmdx")
+
+[node name="Polygon2D" type="Polygon2D" parent="." unique_id=505005700]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." unique_id=790185396]
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
