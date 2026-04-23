@@ -1,0 +1,61 @@
+[gd_scene format=3 uid="uid://bwppdbxa50top"]
+
+[ext_resource type="Script" uid="uid://ucj81ftj21i" path="res://scenes/main_menu.gd" id="1_l6cm7"]
+[ext_resource type="Theme" uid="uid://dn5mbxugl22di" path="res://assets/themes/menu.tres" id="2_ekxnf"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_ekxnf"]
+font_size = 80
+
+[node name="MainMenu" type="Control" unique_id=301014197]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_l6cm7")
+
+[node name="Label" type="Label" parent="." unique_id=190611520]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 56.0
+offset_bottom = 166.0
+grow_horizontal = 2
+text = "a very amazing game"
+label_settings = SubResource("LabelSettings_ekxnf")
+horizontal_alignment = 1
+
+[node name="CenterContainer" type="VBoxContainer" parent="." unique_id=44965680]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -85.0
+offset_top = -26.5
+offset_right = 85.0
+offset_bottom = 61.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
+
+[node name="Start" type="Button" parent="CenterContainer" unique_id=1002581766]
+layout_mode = 2
+theme = ExtResource("2_ekxnf")
+text = "start"
+
+[node name="Quit" type="Button" parent="CenterContainer" unique_id=592585134]
+layout_mode = 2
+theme = ExtResource("2_ekxnf")
+text = "don't start"
+
+[node name="Mystery" type="Button" parent="CenterContainer" unique_id=1987323306]
+layout_mode = 2
+theme = ExtResource("2_ekxnf")
+text = "mystery button :)"
+
+[connection signal="pressed" from="CenterContainer/Start" to="." method="_on_start_pressed"]
+[connection signal="pressed" from="CenterContainer/Quit" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="CenterContainer/Mystery" to="." method="_on_mystery_pressed"]

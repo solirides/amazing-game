@@ -1,18 +1,25 @@
 extends RigidBody2D
 
-var theta = 0
+
 @export var speed:float = 16
 @export var radius:float = 300
 @export var inner_radius:float = 280
 
+@export var base_health:int = 100
+var health = 0
+var theta = 0
+
 func _ready() -> void:
+	# set collision shape
 	var polygon = create_polygon()
 	$Polygon2D.polygon = polygon
 	$CollisionPolygon2D.polygon = polygon
 	
+	health = base_health
 	
 
 func create_polygon():
+	# make an arc shape
 	var points = []
 	var res = 10
 	var angle = 0.7
@@ -37,4 +44,11 @@ func _physics_process(delta: float) -> void:
 func _on_body_entered(body: Node) -> void:
 	print("collision")
 	if body.is_in_group("bullet"):
+		damage(body.damage)
 		body.queue_free()
+
+func damage(amount:int):
+	health -= amount
+	if health <= 0:
+		print("wall dead")
+		queue_free()
