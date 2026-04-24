@@ -16,21 +16,18 @@ circle_display = NodePath("Circle")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1396958463]
 
+[node name="Circle" type="Node2D" parent="." unique_id=2028538421]
+script = ExtResource("3_4wyf3")
+
 [node name="Player" parent="." unique_id=325968683 instance=ExtResource("1_nnsk1")]
 
 [node name="Wall" parent="." unique_id=858099970 instance=ExtResource("2_rwgxs")]
-
-[node name="Circle" type="Node2D" parent="." unique_id=2028538421]
-script = ExtResource("3_4wyf3")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=217485117]
 collision_layer = 8
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D" unique_id=1479289457]
 build_mode = 1
-
-[node name="Polygon2D" type="Polygon2D" parent="." unique_id=471456156]
-color = Color(0.5027801, 0.43469998, 0.69, 0.47058824)
 
 [node name="Label" type="Label" parent="." unique_id=241331336]
 anchors_preset = 8
@@ -44,7 +41,7 @@ offset_right = 104.5
 offset_bottom = 29.5
 grow_horizontal = 2
 grow_vertical = 2
-text = "player: WASD+ mouse
+text = "player: WASD+mouse
 wall: J+L"
 label_settings = SubResource("LabelSettings_k0juu")
 horizontal_alignment = 1

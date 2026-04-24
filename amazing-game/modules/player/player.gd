@@ -13,7 +13,7 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	pass
+	$Pointer.global_rotation = (get_global_mouse_position() - self.global_position).angle()
 	
 
 func _physics_process(delta: float) -> void:

@@ -5,9 +5,9 @@ extends Node2D
 @export var circle_display:Node
 
 func _ready() -> void:
-	var circle_shape = create_circle(wall_node.inner_radius, 20)
+	var resolution = 40
+	var circle_shape = create_circle(wall_node.inner_radius, resolution)
 	$StaticBody2D/CollisionPolygon2D.polygon = circle_shape
-	$Polygon2D.polygon = circle_shape
 	
 	circle_display.connect("pulse_reached", player_node._on_pulse_reached)
 

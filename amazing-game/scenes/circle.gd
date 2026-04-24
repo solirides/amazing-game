@@ -30,9 +30,10 @@ func _on_tween_finished():
 	circle_pulse(pulse_duration)
 
 func _draw() -> void:
-	draw_circle(Vector2(0,0), radius, Color(1,1,1,0.5), false, width)
-	
-	
-	draw_circle(Vector2(0,0), current_radius, Color(0.95, 0.629, 0.875, 0.816), false, width)
+	# draw static circle for path of the wall
+	draw_circle(Vector2(0,0), radius, Color(1,1,1,0.5), false, width, true)
+	draw_circle(Vector2(0,0), radius, Color("806fb078"), true, width, true)
+	# draw pulsing circle
+	draw_circle(Vector2(0,0), current_radius, Color(0.95, 0.629, 0.875, 0.816), false, width, true)
 	
 	

@@ -1,7 +1,7 @@
 extends RigidBody2D
 
 
-@export var speed:float = 16
+@export var speed:float = 12
 @export var radius:float = 300
 @export var inner_radius:float = 280
 
