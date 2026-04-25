@@ -1,7 +1,7 @@
 extends RigidBody2D
 
 
-@export var speed = 100
+@export var speed = 200
 @export var bullet_speed = 1000
 @export var base_health = 100
 var health = 0

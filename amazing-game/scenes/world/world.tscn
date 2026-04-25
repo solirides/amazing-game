@@ -1,9 +1,10 @@
 [gd_scene format=3 uid="uid://dqj8oypchmnag"]
 
-[ext_resource type="Script" uid="uid://b5dajo7xuf5e6" path="res://scenes/world.gd" id="1_k0juu"]
+[ext_resource type="Script" uid="uid://b5dajo7xuf5e6" path="res://scenes/world/world.gd" id="1_k0juu"]
 [ext_resource type="PackedScene" uid="uid://b65jgvaki42my" path="res://modules/player/player.tscn" id="1_nnsk1"]
 [ext_resource type="PackedScene" uid="uid://dyy8y5xftvvi3" path="res://modules/wall/wall.tscn" id="2_rwgxs"]
-[ext_resource type="Script" uid="uid://bmt4rrbbbby3w" path="res://scenes/circle.gd" id="3_4wyf3"]
+[ext_resource type="Script" uid="uid://cd4g7rhnnvep4" path="res://scenes/world/camera.gd" id="2_v5dby"]
+[ext_resource type="Script" uid="uid://bmt4rrbbbby3w" path="res://scenes/world/circle.gd" id="3_4wyf3"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_k0juu"]
 font_size = 20
@@ -14,7 +15,9 @@ wall_node = NodePath("Wall")
 player_node = NodePath("Player")
 circle_display = NodePath("Circle")
 
-[node name="Camera2D" type="Camera2D" parent="." unique_id=1396958463]
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1396958463 node_paths=PackedStringArray("target")]
+script = ExtResource("2_v5dby")
+target = NodePath("../Player")
 
 [node name="Circle" type="Node2D" parent="." unique_id=2028538421]
 script = ExtResource("3_4wyf3")
@@ -27,7 +30,12 @@ script = ExtResource("3_4wyf3")
 collision_layer = 8
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D" unique_id=1479289457]
-build_mode = 1
+visible = false
+
+[node name="Polygon2D" type="Polygon2D" parent="StaticBody2D" unique_id=2035311204]
+visible = false
+color = Color(0.93124247, 0.74480927, 0, 1)
+polygon = PackedVector2Array(382, -72, 637, 236, 144, 269, 281, -123, 332, 163)
 
 [node name="Label" type="Label" parent="." unique_id=241331336]
 anchors_preset = 8

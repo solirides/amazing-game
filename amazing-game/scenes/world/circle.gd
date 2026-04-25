@@ -6,6 +6,7 @@ extends Node2D
 @export var start_radius = 800
 @export var pulse_duration:float = 2.0
 
+var filled_circle_coords = [Vector2(0,0)]
 var current_radius = 0
 var radius_tween:Tween
 
@@ -31,8 +32,9 @@ func _on_tween_finished():
 
 func _draw() -> void:
 	# draw static circle for path of the wall
-	draw_circle(Vector2(0,0), radius, Color(1,1,1,0.5), false, width, true)
-	draw_circle(Vector2(0,0), radius, Color("806fb078"), true, width, true)
+	for coords in filled_circle_coords:
+		draw_circle(coords, radius, Color(1,1,1,0.5), false, width, true)
+		draw_circle(coords, radius, Color("806fb078"), true, -1, true)
 	# draw pulsing circle
 	draw_circle(Vector2(0,0), current_radius, Color(0.95, 0.629, 0.875, 0.816), false, width, true)
 	
