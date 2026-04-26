@@ -5,6 +5,8 @@ extends RigidBody2D
 @export var bullet_speed = 1000
 @export var base_health = 100
 var health = 0
+var can_move = false
+var can_shoot = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -17,13 +19,14 @@ func _process(delta: float) -> void:
 	
 
 func _physics_process(delta: float) -> void:
-	var vector = Input.get_vector("ui_left","ui_right","ui_up","ui_down")
-	vector.normalized()
-	
-	linear_velocity = vector * speed
+	if can_move:
+		var vector = Input.get_vector("ui_left","ui_right","ui_up","ui_down")
+		vector.normalized()
+		
+		linear_velocity = vector * speed
 	
 	# note: "left_mouse" is an input set in Project>Project settings>Input map
-	if Input.is_action_just_pressed("left_mouse"):
+	if Input.is_action_just_pressed("left_mouse") and can_shoot:
 		shoot()
 
 func _input(event: InputEvent) -> void:

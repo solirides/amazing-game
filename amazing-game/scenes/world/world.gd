@@ -3,6 +3,7 @@ extends Node2D
 @export var wall_node:Node
 @export var player_node:Node
 @export var circle_display:Node
+@export var circles = 0
 
 var filled_circle_coords = []
 var filled_circle_hex = []
@@ -11,7 +12,7 @@ func _ready() -> void:
 	
 	circle_display.connect("pulse_reached", player_node._on_pulse_reached)
 	
-	create_grid(2)
+	create_grid(circles)
 	create_collision_polygon()
 
 func create_circle(radius:float, res:int, sign:int = 0, offset:Vector2 = Vector2(0,0)):
