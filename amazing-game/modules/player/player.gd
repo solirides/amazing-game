@@ -100,7 +100,9 @@ func shoot(damage:float):
 	instance.rotate(theta)
 	instance.damage = damage
 	#instance.scale = Vector2(damage, damage)
+	instance.get_node("Polygon2D").color = $Polygon2D.modulate
 	instance.get_node("Label").text = str(int(damage))
+	GameManager.world.info_label.text = "bullet damage: " + str(damage)
 	print("spawned bullet with damage: " + str(damage))
 	
 	get_tree().root.add_child(instance)

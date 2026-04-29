@@ -17,7 +17,7 @@ gravity_scale = 0.0
 script = ExtResource("1_iua24")
 
 [node name="Polygon2D" type="Polygon2D" parent="." unique_id=1947783675]
-color = Color(1, 0.802, 0.33999997, 1)
+color = Color(0.57316136, 0.80360126, 0.40743852, 1)
 polygon = PackedVector2Array(-16, -8, -16, 8, 24, 8, 24, -8)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1026906252]
@@ -25,6 +25,7 @@ position = Vector2(4, 0)
 shape = SubResource("RectangleShape2D_iua24")
 
 [node name="Label" type="Label" parent="." unique_id=887910351]
+visible = false
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5

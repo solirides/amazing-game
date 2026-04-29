@@ -5,9 +5,12 @@
 [ext_resource type="PackedScene" uid="uid://dyy8y5xftvvi3" path="res://modules/wall/wall.tscn" id="2_rwgxs"]
 [ext_resource type="Script" uid="uid://cd4g7rhnnvep4" path="res://scenes/world/camera.gd" id="2_v5dby"]
 [ext_resource type="Script" uid="uid://bmt4rrbbbby3w" path="res://scenes/world/circle.gd" id="3_4wyf3"]
+[ext_resource type="Script" uid="uid://cyfvt1ht8toqp" path="res://scenes/world/health_bars.gd" id="6_t5ptc"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_k0juu"]
 font_size = 20
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bq33v"]
 
 [node name="World" type="Node2D" unique_id=345513547 node_paths=PackedStringArray("wall_node", "turret_node", "circle_display")]
 script = ExtResource("1_k0juu")
@@ -50,8 +53,72 @@ offset_right = 105.0
 offset_bottom = -71.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "turret: A+D
-wall: J+L"
+text = "turret: A+D, C or Space
+wall: J+L, N or Enter"
 label_settings = SubResource("LabelSettings_k0juu")
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="Label2" type="Label" parent="." unique_id=1679127816]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -104.0
+offset_top = -237.0
+offset_right = 105.0
+offset_bottom = -178.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "bullet: 10 damage"
+label_settings = SubResource("LabelSettings_k0juu")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HealthBars" type="Control" parent="." unique_id=768485953]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("6_t5ptc")
+
+[node name="Player1Health" type="ProgressBar" parent="HealthBars" unique_id=812177010]
+custom_minimum_size = Vector2(300, 40)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -150.0
+offset_top = -328.0
+offset_right = 150.0
+offset_bottom = -288.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/fill = SubResource("StyleBoxFlat_bq33v")
+value = 65.0
+
+[node name="Player2Health" type="ProgressBar" parent="HealthBars" unique_id=1782861849]
+visible = false
+custom_minimum_size = Vector2(300, 40)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -150.0
+offset_top = 292.0
+offset_right = 150.0
+offset_bottom = 332.0
+grow_horizontal = 2
+grow_vertical = 2
+value = 65.0
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1441546883]
+
+[node name="GUI" type="Control" parent="CanvasLayer" unique_id=477382986]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0

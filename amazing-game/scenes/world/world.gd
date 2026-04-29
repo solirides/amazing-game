@@ -4,12 +4,14 @@ extends Node2D
 @export var turret_node:Node
 @export var circle_display:Node
 @export var circles = 0
+@onready var info_label = $Label2
 
 var filled_circle_coords = []
 var filled_circle_hex = []
 
 func _ready() -> void:
 	GameManager.world = self
+	GameManager.players_swapped.connect(swap_players)
 	circle_display.connect("pulse_reached", turret_node._on_pulse_reached)
 	
 	create_grid(circles)
@@ -87,16 +89,16 @@ func create_collision_polygon():
 
 func set_player_colors():
 	if GameManager.swap_state:
-		turret_node.get_node("Polygon2D").modulate = GameManager.wall_color
-		wall_node.get_node("Polygon2D").modulate = GameManager.turret_color
+		turret_node.get_node("Polygon2D").modulate = GameManager.player2_color
+		wall_node.get_node("Polygon2D").modulate = GameManager.player1_color
 	else:
-		turret_node.get_node("Polygon2D").modulate = GameManager.turret_color
-		wall_node.get_node("Polygon2D").modulate = GameManager.wall_color
+		turret_node.get_node("Polygon2D").modulate = GameManager.player1_color
+		wall_node.get_node("Polygon2D").modulate = GameManager.player2_color
 		
 
-func swap_players():
+func swap_players(state:bool):
 	print("swapping players")
-	GameManager.swap_state = !GameManager.swap_state
+	#GameManager.swap_state = !GameManager.swap_state
 	
 	set_player_colors()
 	

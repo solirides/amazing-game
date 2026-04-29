@@ -71,13 +71,15 @@ func die():
 	can_move = false
 	
 	var timer = get_tree().create_timer(respawn_time, false, true).timeout.connect(respawn)
-	GameManager.world.swap_players()
-	
+	GameManager.swap_players(!GameManager.swap_state)
+	flash_animation(respawn_time)
+
+func flash_animation(duration:float):
 	# flashing animation
 	if modulate_tween:
 		modulate_tween.kill()
 	var modulate_tween = create_tween()
-	for i in range(ceil((respawn_time - 0.6) / 0.6)):
+	for i in range(ceil((duration - 0.6) / 0.6)):
 		modulate_tween.tween_property(self, "modulate", Color(1,1,1,0.2), 0.3)
 		modulate_tween.tween_property(self, "modulate", Color(1,1,1,0.6), 0.3)
 	for i in range(3):
