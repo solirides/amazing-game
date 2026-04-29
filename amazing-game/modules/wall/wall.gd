@@ -18,11 +18,11 @@ var alive_state = true
 signal alive_state_changed(state:bool)
 
 func _ready() -> void:
+	GameManager.wall = self
 	# set collision shape
 	var polygon = create_polygon()
 	$Polygon2D.polygon = polygon
 	$CollisionPolygon2D.polygon = polygon
-	
 	
 
 func create_polygon():
@@ -71,7 +71,9 @@ func die():
 	can_move = false
 	
 	var timer = get_tree().create_timer(respawn_time, false, true).timeout.connect(respawn)
+	GameManager.world.swap_players()
 	
+	# flashing animation
 	if modulate_tween:
 		modulate_tween.kill()
 	var modulate_tween = create_tween()

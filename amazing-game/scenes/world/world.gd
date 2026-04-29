@@ -1,7 +1,7 @@
 extends Node2D
 
 @export var wall_node:Node
-@export var player_node:Node
+@export var turret_node:Node
 @export var circle_display:Node
 @export var circles = 0
 
@@ -9,11 +9,12 @@ var filled_circle_coords = []
 var filled_circle_hex = []
 
 func _ready() -> void:
-	
-	circle_display.connect("pulse_reached", player_node._on_pulse_reached)
+	GameManager.world = self
+	circle_display.connect("pulse_reached", turret_node._on_pulse_reached)
 	
 	create_grid(circles)
 	create_collision_polygon()
+	set_player_colors()
 
 func create_circle(radius:float, res:int, sign:int = 0, offset:Vector2 = Vector2(0,0)):
 	# make a circle
@@ -83,4 +84,38 @@ func create_collision_polygon():
 		#poly.color = Color.from_hsv(randf(), 0.5, 0.8, 0.5)
 		#$StaticBody2D.add_child(poly)
 	
+
+func set_player_colors():
+	if GameManager.swap_state:
+		turret_node.get_node("Polygon2D").modulate = GameManager.wall_color
+		wall_node.get_node("Polygon2D").modulate = GameManager.turret_color
+	else:
+		turret_node.get_node("Polygon2D").modulate = GameManager.turret_color
+		wall_node.get_node("Polygon2D").modulate = GameManager.wall_color
+		
+
+func swap_players():
+	print("swapping players")
+	GameManager.swap_state = !GameManager.swap_state
 	
+	set_player_colors()
+	
+	var actions_to_swap = [
+		["turret_cw", "wall_cw"],
+		["turret_ccw", "wall_ccw"],
+		["turret_attack", "wall_attack"]
+	]
+	
+	for i in actions_to_swap.size():
+		var events0 = InputMap.action_get_events(actions_to_swap[i][0])
+		var events1 = InputMap.action_get_events(actions_to_swap[i][1])
+		
+		InputMap.action_erase_events(actions_to_swap[i][0])
+		InputMap.action_erase_events(actions_to_swap[i][1])
+		
+		for event in events0:
+			InputMap.action_add_event(actions_to_swap[i][1], event)
+		
+		for event in events1:
+			InputMap.action_add_event(actions_to_swap[i][0], event)
+		
