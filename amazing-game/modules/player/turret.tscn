@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://b65jgvaki42my"]
 
-[ext_resource type="Script" uid="uid://cepiugbyu600a" path="res://modules/player/player.gd" id="1_fhf1h"]
+[ext_resource type="Script" uid="uid://cepiugbyu600a" path="res://modules/player/turret.gd" id="1_fhf1h"]
 [ext_resource type="Texture2D" uid="uid://wr8lqm38ij8g" path="res://icon.svg" id="2_a5pop"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_qgxqk"]
@@ -9,7 +9,7 @@ friction = 0.0
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qgxqk"]
 size = Vector2(64, 64)
 
-[node name="Player" type="RigidBody2D" unique_id=325968683]
+[node name="Turret" type="RigidBody2D" unique_id=325968683]
 collision_mask = 11
 physics_material_override = SubResource("PhysicsMaterial_qgxqk")
 gravity_scale = 0.0

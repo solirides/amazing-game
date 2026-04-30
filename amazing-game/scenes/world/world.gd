@@ -121,3 +121,17 @@ func swap_players(state:bool):
 		for event in events1:
 			InputMap.action_add_event(actions_to_swap[i][0], event)
 		
+
+
+func _on_player_death():
+	GameManager.turret.die()
+	GameManager.swap_players(!GameManager.swap_state)
+
+
+func _on_turret_alive_state_changed(state: bool) -> void:
+	pass # Replace with function body.
+
+
+func _on_wall_alive_state_changed(state: bool) -> void:
+	if state == false:
+		_on_player_death()

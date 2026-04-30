@@ -7,7 +7,6 @@ extends Node2D
 @export var start_radius = 800
 
 @export var pulse_duration:float = 2.0
-
 @export var timing_range:float = 1.0
 #@export var perfect_timing_range:float = 0.03
 
@@ -32,6 +31,7 @@ var center_time = 0
 signal pulse_reached(state:String)
 
 func _ready() -> void:
+	modulate = Color(1,1,1,0.5)
 	circle_pulse(pulse_duration)
 
 func _process(delta: float) -> void:
@@ -120,7 +120,8 @@ func _on_pulse_section_reached(state_i:int, damage_scale:float, start_or_end_sta
 func _on_tween_finished():
 	#pulse_reached.emit("end")
 	draw_pulsing_circle = false
-	await get_tree().create_timer(1.0).timeout
+	var time = randf_range(3,7)
+	await get_tree().create_timer(time).timeout
 	circle_pulse(pulse_duration)
 
 func _draw() -> void:
@@ -135,13 +136,13 @@ func _draw() -> void:
 		#var perfect_offset = (start_radius - radius)/pulse_duration * timing_ranges[1][0]
 		
 		# total range
-		draw_circle(Vector2(0,0), current_radius, Color(0.835, 0.672, 0.96, 0.216), false, offset, true)
+		draw_circle(Vector2(0,0), current_radius, Color(0.835, 0.672, 0.96, 1.0), false, offset, true)
 		
 		for i in timing_ranges.size():
 			#area
-			draw_circle(Vector2(0,0), current_radius, Color.from_hsv(i*0.3,1,1,0.3) , false, timing_ranges[i][0]*speed * 2.0, true)
+			draw_circle(Vector2(0,0), current_radius, Color.from_hsv(i*0.3,1,1,1) , false, timing_ranges[i][0]*speed * 2.0, true)
 			# leading edge
-			draw_circle(Vector2(0,0), current_radius - timing_ranges[i][0]*speed, Color.from_hsv(i*0.3,1,1,0.3) , false, 1, true)
+			draw_circle(Vector2(0,0), current_radius - timing_ranges[i][0]*speed, Color.from_hsv(i*0.3,0.4,1,1) , false, 1, true)
 			
 		#states.append([i, pulse_duration + timing_ranges[i][0], timing_ranges[i][1], true])
 		
