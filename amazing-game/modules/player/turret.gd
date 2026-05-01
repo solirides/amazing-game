@@ -51,7 +51,7 @@ func _physics_process(delta: float) -> void:
 	
 	# note: "left_mouse" is an input set in Project>Project settings>Input map
 	if Input.is_action_just_pressed("turret_attack") or Input.is_action_just_pressed("left_mouse"):
-		if pulse_states[0] == true and (shot_bullet == false or infinite_shooting):
+		if pulse_states[0] == true and (shot_bullet == false or infinite_shooting) and ammo > 0:
 			shot_bullet = true
 			var damage = bullet_damage
 			damage *= circle_node.timing_ranges[highest_active_pulse_state][1]
@@ -101,6 +101,9 @@ func shoot(damage:float):
 	print("spawned bullet with damage: " + str(damage))
 	
 	get_tree().root.add_child(instance)
+	
+	ammo -= 1
+	ammo_changed.emit(ammo)
 	
 #
 #func damage(amount:int):

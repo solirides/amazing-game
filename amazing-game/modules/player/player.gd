@@ -5,9 +5,11 @@ extends RigidBody2D
 @export var base_speed:float = 12
 @export var base_health:int = 100
 @export var respawn_time:float = 4.0
+@export var base_ammo:int = 3
 
 @onready var health = base_health
 @onready var speed = base_speed
+@onready var ammo = base_ammo
 var theta = 0
 var can_move = true
 var alive_state = true
@@ -16,6 +18,7 @@ var can_shoot = false
 #var max_damage_in_tick = 0
 
 signal alive_state_changed(state:bool)
+signal ammo_changed(ammo:int)
 
 func _on_body_entered(body: Node) -> void:
 	print("collision")
@@ -65,6 +68,9 @@ func respawn():
 	can_move = true
 	
 	health = base_health
+	
+	ammo = base_ammo
+	ammo_changed.emit(ammo)
 	
 	if modulate_tween:
 		modulate_tween.kill()

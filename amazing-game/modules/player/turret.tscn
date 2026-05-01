@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cepiugbyu600a" path="res://modules/player/turret.gd" id="1_fhf1h"]
 [ext_resource type="Texture2D" uid="uid://wr8lqm38ij8g" path="res://icon.svg" id="2_a5pop"]
+[ext_resource type="Script" uid="uid://cnxy1pcddd3nc" path="res://modules/player/ammo_display.gd" id="3_gwun1"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_qgxqk"]
 friction = 0.0
@@ -30,3 +31,12 @@ shape = SubResource("RectangleShape2D_qgxqk")
 [node name="Pointer" type="Polygon2D" parent="." unique_id=1745520985]
 color = Color(1, 1, 1, 0.76862746)
 polygon = PackedVector2Array(48, -16, 88, 0, 48, 16, 56, 0)
+
+[node name="AmmoDisplay" type="Node2D" parent="." unique_id=2011386272 node_paths=PackedStringArray("bullet", "player")]
+position = Vector2(0, -64)
+script = ExtResource("3_gwun1")
+bullet = NodePath("Polygon2D2")
+player = NodePath("..")
+
+[node name="Polygon2D2" type="Polygon2D" parent="AmmoDisplay" unique_id=950222752]
+polygon = PackedVector2Array(-8, -16, 8, -16, 8, 16, -8, 16)
