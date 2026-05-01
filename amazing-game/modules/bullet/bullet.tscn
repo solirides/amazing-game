@@ -1,9 +1,10 @@
 [gd_scene format=3 uid="uid://htkbbdk3pdxh"]
 
 [ext_resource type="Script" uid="uid://yscqvag6rypt" path="res://modules/bullet/bullet.gd" id="1_iua24"]
+[ext_resource type="Texture2D" uid="uid://dquew3wngi6rg" path="res://assets/textures/bulletv1.png" id="2_f8omx"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_iua24"]
-size = Vector2(40, 16)
+size = Vector2(56, 16)
 
 [sub_resource type="LabelSettings" id="LabelSettings_iua24"]
 font_size = 40
@@ -17,11 +18,17 @@ gravity_scale = 0.0
 script = ExtResource("1_iua24")
 
 [node name="Polygon2D" type="Polygon2D" parent="." unique_id=1947783675]
+visible = false
 color = Color(0.57316136, 0.80360126, 0.40743852, 1)
 polygon = PackedVector2Array(-16, -8, -16, 8, 24, 8, 24, -8)
 
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=2036873418]
+texture_filter = 1
+rotation = 1.5707964
+texture = ExtResource("2_f8omx")
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1026906252]
-position = Vector2(4, 0)
+position = Vector2(12, 0)
 shape = SubResource("RectangleShape2D_iua24")
 
 [node name="Label" type="Label" parent="." unique_id=887910351]

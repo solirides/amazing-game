@@ -8,6 +8,7 @@ extends Player
 
 func _ready() -> void:
 	GameManager.wall = self
+	GameManager.players_swapped.connect(swap_player)
 	# set collision shape
 	var polygon = create_polygon(arc_angle)
 	$Polygon2D.polygon = polygon
@@ -66,3 +67,9 @@ func _on_body_entered(body: Node) -> void:
 		
 		remove_critical_spot()
 		get_tree().create_timer(2.0).timeout.connect(func(): create_critical_spot(0.2))
+
+func swap_player(state:bool):
+	if state:
+		get_node("Polygon2D").modulate = GameManager.player1_color
+	else:
+		get_node("Polygon2D").modulate = GameManager.player2_color

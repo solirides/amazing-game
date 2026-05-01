@@ -10,13 +10,15 @@ var filled_circle_coords = []
 var filled_circle_hex = []
 
 func _ready() -> void:
+	save_inputs()
 	GameManager.world = self
 	GameManager.players_swapped.connect(swap_players)
 	circle_display.connect("pulse_reached", turret_node._on_pulse_reached)
 	
 	create_grid(circles)
 	create_collision_polygon()
-	set_player_colors()
+	GameManager.swap_players(false, true)
+	#set_player_colors()
 
 func create_circle(radius:float, res:int, sign:int = 0, offset:Vector2 = Vector2(0,0)):
 	# make a circle
@@ -96,31 +98,45 @@ func set_player_colors():
 		wall_node.get_node("Polygon2D").modulate = GameManager.player2_color
 		
 
-func swap_players(state:bool):
-	print("swapping players")
-	#GameManager.swap_state = !GameManager.swap_state
-	
-	set_player_colors()
-	
-	var actions_to_swap = [
+var actions_to_swap = [
 		["turret_cw", "wall_cw"],
 		["turret_ccw", "wall_ccw"],
 		["turret_attack", "wall_attack"]
 	]
+var saved_actions_p1 = []
+var saved_actions_p2 = []
+
+func swap_players(state:bool):
+	print("swapping players")
+	
+	var actions_for_p1 = []
+	var actions_for_p2 = []
+	if state:
+		actions_for_p1 = saved_actions_p2
+		actions_for_p2 = saved_actions_p1
+	else:
+		actions_for_p1 = saved_actions_p1
+		actions_for_p2 = saved_actions_p2
 	
 	for i in actions_to_swap.size():
-		var events0 = InputMap.action_get_events(actions_to_swap[i][0])
-		var events1 = InputMap.action_get_events(actions_to_swap[i][1])
 		
 		InputMap.action_erase_events(actions_to_swap[i][0])
 		InputMap.action_erase_events(actions_to_swap[i][1])
 		
-		for event in events0:
-			InputMap.action_add_event(actions_to_swap[i][1], event)
-		
-		for event in events1:
+		for event in actions_for_p1[i]:
 			InputMap.action_add_event(actions_to_swap[i][0], event)
 		
+		for event in actions_for_p2[i]:
+			InputMap.action_add_event(actions_to_swap[i][1], event)
+		
+
+func save_inputs():
+	for i in actions_to_swap.size():
+		var events1 = InputMap.action_get_events(actions_to_swap[i][0])
+		var events2 = InputMap.action_get_events(actions_to_swap[i][1])
+		
+		saved_actions_p1.append(events1)
+		saved_actions_p2.append(events2)
 
 func _on_player_death():
 	GameManager.turret.die()

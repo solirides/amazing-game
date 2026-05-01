@@ -21,7 +21,8 @@ var shot_bullet = true
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	GameManager.turret = self
-	health = base_health
+	GameManager.players_swapped.connect(swap_player)
+	
 	await get_tree().process_frame
 	await get_tree().process_frame
 	await get_tree().process_frame
@@ -75,7 +76,7 @@ func _physics_process(delta: float) -> void:
 		theta -= rotation_speed
 	if Input.is_action_pressed("turret_cw"):
 		theta += rotation_speed
-	$Pointer.global_rotation = theta
+	$Sprite2D.global_rotation = theta + PI*0.5
 
 func _input(event: InputEvent) -> void:
 	pass
@@ -124,3 +125,9 @@ func _on_pulse_reached(state_i:int, damage_scale:float, start_or_end_state:bool)
 	match [state_i, start_or_end_state]:
 		[0, true]:
 			shot_bullet = false
+
+func swap_player(state:bool):
+	if state:
+		$Sprite2D.texture = GameManager.player2_turret_sprite
+	else:
+		$Sprite2D.texture = GameManager.player1_turret_sprite
