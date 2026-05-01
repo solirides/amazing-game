@@ -13,11 +13,18 @@ var can_move = true
 var alive_state = true
 var can_shoot = false
 
+#var max_damage_in_tick = 0
+
 signal alive_state_changed(state:bool)
 
 func _on_body_entered(body: Node) -> void:
-	#print("collision")
+	print("collision")
 	if body.is_in_group("bullet"):
+		if body.hit_processed:
+			return
+		# prevent double hit
+		body.hit_processed = true
+		
 		damage(body.damage)
 		body.queue_free()
 
@@ -62,3 +69,8 @@ func respawn():
 	if modulate_tween:
 		modulate_tween.kill()
 	modulate = Color(1,1,1,1)
+
+#func _physics_process(delta: float) -> void:
+	#if max_damage_in_tick > 0:
+		#damage(max_damage_in_tick)
+	#max_damage_in_tick = 0

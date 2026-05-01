@@ -5,6 +5,8 @@
 [ext_resource type="PackedScene" uid="uid://dyy8y5xftvvi3" path="res://modules/player/wall.tscn" id="2_rwgxs"]
 [ext_resource type="Script" uid="uid://cd4g7rhnnvep4" path="res://scenes/world/camera.gd" id="2_v5dby"]
 [ext_resource type="Script" uid="uid://bmt4rrbbbby3w" path="res://scenes/world/circle.gd" id="3_4wyf3"]
+[ext_resource type="Script" uid="uid://cgk8kopvx6vm4" path="res://scenes/world/background_circle.gd" id="3_bq33v"]
+[ext_resource type="Script" uid="uid://60jkn7647itj" path="res://scenes/world/foreground_circle.gd" id="5_j2gmx"]
 [ext_resource type="Script" uid="uid://cyfvt1ht8toqp" path="res://scenes/world/health_bars.gd" id="6_t5ptc"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_k0juu"]
@@ -22,13 +24,21 @@ circle_display = NodePath("CircleDisplay")
 script = ExtResource("2_v5dby")
 target = NodePath("../Turret")
 
+[node name="BackgroundCircle" type="Node2D" parent="." unique_id=507585421]
+script = ExtResource("3_bq33v")
+
 [node name="CircleDisplay" type="Node2D" parent="." unique_id=2028538421]
 script = ExtResource("3_4wyf3")
+width = 3
+
+[node name="ForegroundCircle" type="Node2D" parent="." unique_id=470259115]
+script = ExtResource("5_j2gmx")
 
 [node name="Turret" parent="." unique_id=325968683 node_paths=PackedStringArray("circle_node") instance=ExtResource("1_nnsk1")]
 circle_node = NodePath("../CircleDisplay")
 
 [node name="Wall" parent="." unique_id=858099970 instance=ExtResource("2_rwgxs")]
+base_health = 100
 
 [node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=217485117]
 collision_layer = 8

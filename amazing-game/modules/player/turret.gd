@@ -2,7 +2,7 @@ extends Player
 
 @export var rotation_speed = 0.1
 @export var bullet_speed = 1000
-@export var base_damage = 10
+@export var base_damage = 20
 @export var infinite_shooting = false
 
 @export var circle_node:Node

@@ -28,5 +28,5 @@ polygon = PackedVector2Array(24, -32, 32, -24, 32, 24, 24, 32, -24, 32, -32, 24,
 shape = SubResource("RectangleShape2D_qgxqk")
 
 [node name="Pointer" type="Polygon2D" parent="." unique_id=1745520985]
-color = Color(1, 1, 1, 0.67058825)
+color = Color(1, 1, 1, 0.76862746)
 polygon = PackedVector2Array(48, -16, 88, 0, 48, 16, 56, 0)
