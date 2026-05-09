@@ -28,7 +28,7 @@ var radius_tween:Tween
 var draw_pulsing_circle = true
 var center_time = 0
 
-signal pulse_reached(state:String)
+signal pulse_reached(state_i:int, damage_scale:float, start_or_end_state:bool)
 
 func _ready() -> void:
 	modulate = Color(1,1,1,0.5)

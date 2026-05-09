@@ -8,9 +8,11 @@
 [ext_resource type="Script" uid="uid://cgk8kopvx6vm4" path="res://scenes/world/background_circle.gd" id="3_bq33v"]
 [ext_resource type="Script" uid="uid://60jkn7647itj" path="res://scenes/world/foreground_circle.gd" id="5_j2gmx"]
 [ext_resource type="Script" uid="uid://cyfvt1ht8toqp" path="res://scenes/world/health_bars.gd" id="6_t5ptc"]
+[ext_resource type="PackedScene" uid="uid://wd35i56nmnkx" path="res://modules/gui/gui.tscn" id="9_1yooq"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_k0juu"]
 font_size = 20
+font_color = Color(0.728822, 0.728822, 0.728822, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bq33v"]
 
@@ -39,6 +41,10 @@ circle_node = NodePath("../CircleDisplay")
 
 [node name="Wall" parent="." unique_id=858099970 instance=ExtResource("2_rwgxs")]
 base_health = 100
+
+[node name="PinJoint2D" type="PinJoint2D" parent="." unique_id=1980028934]
+node_a = NodePath("../StaticBody2D")
+node_b = NodePath("../Wall")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=217485117]
 collision_layer = 8
@@ -128,11 +134,8 @@ value = 65.0
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1441546883]
 
-[node name="GUI" type="Control" parent="CanvasLayer" unique_id=477382986]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="GUI" parent="CanvasLayer" unique_id=942640815 instance=ExtResource("9_1yooq")]
 
 [connection signal="alive_state_changed" from="Turret" to="." method="_on_turret_alive_state_changed"]
+[connection signal="ammo_changed" from="Turret" to="." method="_on_turret_ammo_changed"]
 [connection signal="alive_state_changed" from="Wall" to="." method="_on_wall_alive_state_changed"]

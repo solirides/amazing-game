@@ -125,6 +125,11 @@ func _on_pulse_reached(state_i:int, damage_scale:float, start_or_end_state:bool)
 	match [state_i, start_or_end_state]:
 		[0, true]:
 			shot_bullet = false
+		[0, false]:
+			if shot_bullet == false:
+				shot_bullet = true
+				ammo -= 1
+				ammo_changed.emit(ammo)
 
 func swap_player(state:bool):
 	if state:

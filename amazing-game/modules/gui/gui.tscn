@@ -1,0 +1,110 @@
+[gd_scene format=3 uid="uid://wd35i56nmnkx"]
+
+[ext_resource type="Script" uid="uid://b31h8wjkqj3j7" path="res://modules/gui/gui.gd" id="1_i5dkf"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_ptgsn"]
+font_size = 52
+outline_size = 14
+outline_color = Color(0.18896914, 0.18896917, 0.1889691, 1)
+
+[sub_resource type="Animation" id="Animation_bjluj"]
+length = 0.001
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Round:position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Round:position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(76, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Round:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+
+[sub_resource type="Animation" id="Animation_467uw"]
+resource_name = "round"
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Round:position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(2, 0, 0, 2),
+"points": PackedFloat32Array(0, 0, 0, 0.111961745, 0, 0, -0.111961745, 0, 0, 0, 0, -0.047076043, 0, 0.06403507, 0, 0, -0.054704927, 0, 0, 0),
+"times": PackedFloat32Array(0, 0.33333334, 0.8666667, 1)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Round:position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(2, 0, 0, 2),
+"points": PackedFloat32Array(-100, 0, 0, 0.111961745, 29.333334, 76, -0.111961745, 0, 0, 0, 76, -0.047076043, 12.428077, 0.06403507, -16.905262, -100, -0.054704927, 29.333334, 0, 0),
+"times": PackedFloat32Array(0, 0.33333334, 0.8666667, 1)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Round:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(2, 0, 0, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 0.09599311, -0.09641151, -0.015998853, 0, 0, -0.034906585, -0.043527395, 0.021816617, 0, 0, -0.06981317, -0.06375599, 0.005817764, 0, 0),
+"times": PackedFloat32Array(0, 0.3, 0.6666667, 1)
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_rf87d"]
+_data = {
+&"RESET": SubResource("Animation_bjluj"),
+&"round": SubResource("Animation_467uw")
+}
+
+[node name="GUI" type="Control" unique_id=942640815]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_i5dkf")
+
+[node name="Round" type="Label" parent="." unique_id=285215155]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 76.0
+offset_bottom = 148.0
+grow_horizontal = 2
+pivot_offset_ratio = Vector2(0.5, 0.5)
+text = "Round 123"
+label_settings = SubResource("LabelSettings_ptgsn")
+horizontal_alignment = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=2128086445]
+libraries/ = SubResource("AnimationLibrary_rf87d")

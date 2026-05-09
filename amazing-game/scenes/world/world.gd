@@ -4,15 +4,17 @@ extends Node2D
 @export var turret_node:Node
 @export var circle_display:Node
 @export var circles = 0
+@onready var camera = $Camera2D
 @onready var info_label = $Label2
 
 var filled_circle_coords = []
 var filled_circle_hex = []
 
+var round_num = 1
+
 func _ready() -> void:
-	save_inputs()
 	GameManager.world = self
-	GameManager.players_swapped.connect(swap_players)
+	GameManager.players_swapped.connect(_on_swap_players)
 	circle_display.connect("pulse_reached", turret_node._on_pulse_reached)
 	
 	create_grid(circles)
@@ -98,49 +100,10 @@ func set_player_colors():
 		wall_node.get_node("Polygon2D").modulate = GameManager.player2_color
 		
 
-var actions_to_swap = [
-		["turret_cw", "wall_cw"],
-		["turret_ccw", "wall_ccw"],
-		["turret_attack", "wall_attack"]
-	]
-var saved_actions_p1 = []
-var saved_actions_p2 = []
-
-func swap_players(state:bool):
-	print("swapping players")
-	
-	var actions_for_p1 = []
-	var actions_for_p2 = []
-	if state:
-		actions_for_p1 = saved_actions_p2
-		actions_for_p2 = saved_actions_p1
-	else:
-		actions_for_p1 = saved_actions_p1
-		actions_for_p2 = saved_actions_p2
-	
-	for i in actions_to_swap.size():
-		
-		InputMap.action_erase_events(actions_to_swap[i][0])
-		InputMap.action_erase_events(actions_to_swap[i][1])
-		
-		for event in actions_for_p1[i]:
-			InputMap.action_add_event(actions_to_swap[i][0], event)
-		
-		for event in actions_for_p2[i]:
-			InputMap.action_add_event(actions_to_swap[i][1], event)
-		
-
-func save_inputs():
-	for i in actions_to_swap.size():
-		var events1 = InputMap.action_get_events(actions_to_swap[i][0])
-		var events2 = InputMap.action_get_events(actions_to_swap[i][1])
-		
-		saved_actions_p1.append(events1)
-		saved_actions_p2.append(events2)
-
 func _on_player_death():
-	GameManager.turret.die()
-	GameManager.swap_players(!GameManager.swap_state)
+	#GameManager.turret.queue_respawn()
+	advance_round()
+
 
 func _on_turret_alive_state_changed(state: bool) -> void:
 	pass # Replace with function body.
@@ -148,3 +111,21 @@ func _on_turret_alive_state_changed(state: bool) -> void:
 func _on_wall_alive_state_changed(state: bool) -> void:
 	if state == false:
 		_on_player_death()
+
+func _on_swap_players(state:bool):
+	pass
+
+func advance_round():
+	round_num += 1
+	GameManager.turret.queue_respawn(3.0)
+	GameManager.wall.queue_respawn(3.0)
+	GameManager.turret.can_move = false
+	GameManager.wall.can_move = false
+	GameManager.swap_players(!GameManager.swap_state)
+
+func _on_turret_ammo_changed(ammo: int) -> void:
+	print(ammo)
+	camera.shake()
+	if ammo == 0:
+		#camera.shake()
+		advance_round()

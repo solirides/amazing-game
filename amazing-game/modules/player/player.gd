@@ -3,11 +3,15 @@ extends RigidBody2D
 
 
 @export var base_speed:float = 12
+@export var base_accel:float = 200
+@export var base_decel:float = 3
 @export var base_health:int = 100
 @export var respawn_time:float = 4.0
 @export var base_ammo:int = 3
 
 @onready var health = base_health
+@onready var accel = base_accel
+@onready var decel = base_decel
 @onready var speed = base_speed
 @onready var ammo = base_ammo
 var theta = 0
@@ -42,12 +46,17 @@ func damage(amount:int):
 var modulate_tween:Tween
 
 func die():
+	if alive_state == false:
+		return
 	alive_state_changed.emit(false)
 	alive_state = false
 	can_move = false
 	
+	queue_respawn(respawn_time)
+
+func queue_respawn(time:float):
 	var timer = get_tree().create_timer(respawn_time, false, true).timeout.connect(respawn)
-	flash_animation(respawn_time)
+	flash_animation(time)
 
 func flash_animation(duration:float):
 	# flashing animation

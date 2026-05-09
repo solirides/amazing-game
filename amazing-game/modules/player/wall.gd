@@ -28,14 +28,28 @@ func create_polygon(angle:float = 0.7, resolution:float=10, outer_radius:float=o
 	return PackedVector2Array(points)
 
 func _physics_process(delta: float) -> void:
-	if can_move:
-		if Input.is_action_pressed("wall_ccw"):
-			theta -= speed / inner_radius
-		if Input.is_action_pressed("wall_cw"):
-			theta += speed / inner_radius
 	
-	self.rotation = theta
-	#self.global_position = Vector2(1,0).rotated(theta)
+	#apply_central_force(Vector2(10,0))
+	
+	if can_move:
+		#var magnitude = clamp((1 - abs(angular_velocity/(speed/inner_radius))), 0, 1)
+		#magnitude = pow(magnitude, 2.0)
+		#var sign = sign(angular_velocity)
+		#if Input.is_action_pressed("wall_ccw"):
+			#angular_velocity -= accel * magnitude * delta
+		#if Input.is_action_pressed("wall_cw"):
+			#angular_velocity += accel * magnitude * delta
+		#angular_velocity = lerp(angular_velocity, 0.0, delta * decel)
+		#angular_velocity = clamp(angular_velocity, -speed/inner_radius, speed/inner_radius)
+		
+		if Input.is_action_pressed("wall_ccw"):
+			theta -= speed / inner_radius * delta
+		if Input.is_action_pressed("wall_cw"):
+			theta += speed / inner_radius * delta
+	
+		self.rotation = theta
+		#self.global_position = Vector2(1,0).rotated(theta)
+	
 
 func create_critical_spot(angle:float):
 	var rot = randf_range(0, arc_angle - angle)

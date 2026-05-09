@@ -18,6 +18,7 @@ signal players_swapped(state:bool)
 
 func _ready() -> void:
 	self.process_mode = Node.PROCESS_MODE_ALWAYS
+	save_inputs()
 
 func _process(delta: float) -> void:
 	pass
@@ -29,4 +30,45 @@ func _input(event: InputEvent) -> void:
 func swap_players(state:bool, force:bool=false):
 	if state != swap_state or force:
 		swap_state = state
+		swap_player_controls(state)
 		players_swapped.emit(state)
+
+
+var actions_to_swap = [
+		["turret_cw", "wall_cw"],
+		["turret_ccw", "wall_ccw"],
+		["turret_attack", "wall_attack"]
+	]
+var saved_actions_p1 = []
+var saved_actions_p2 = []
+
+func swap_player_controls(state:bool):
+	print("swapping players")
+	
+	var actions_for_p1 = []
+	var actions_for_p2 = []
+	if state:
+		actions_for_p1 = saved_actions_p2
+		actions_for_p2 = saved_actions_p1
+	else:
+		actions_for_p1 = saved_actions_p1
+		actions_for_p2 = saved_actions_p2
+	
+	for i in actions_to_swap.size():
+		
+		InputMap.action_erase_events(actions_to_swap[i][0])
+		InputMap.action_erase_events(actions_to_swap[i][1])
+		
+		for event in actions_for_p1[i]:
+			InputMap.action_add_event(actions_to_swap[i][0], event)
+		
+		for event in actions_for_p2[i]:
+			InputMap.action_add_event(actions_to_swap[i][1], event)
+
+func save_inputs():
+	for i in actions_to_swap.size():
+		var events1 = InputMap.action_get_events(actions_to_swap[i][0])
+		var events2 = InputMap.action_get_events(actions_to_swap[i][1])
+		
+		saved_actions_p1.append(events1)
+		saved_actions_p2.append(events2)
