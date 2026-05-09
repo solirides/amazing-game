@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://civa8dd8deecp"]
+
+[ext_resource type="Script" uid="uid://c0cq76un1emne" path="res://modules/cards/cards.gd" id="1_6k1sf"]
+[ext_resource type="Texture2D" uid="uid://cwt7eg6hcfb80" path="res://assets/textures/HeartCard.png" id="1_m273a"]
+[ext_resource type="Texture2D" uid="uid://biqn83352xtcb" path="res://assets/textures/DamageCard.png" id="2_h3ht7"]
+[ext_resource type="Texture2D" uid="uid://mq27cjyw0qgo" path="res://assets/textures/SpeedCard.png" id="3_wbh7r"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6k1sf"]
+size = Vector2(27, 43)
+
+[node name="cards" type="Area2D" unique_id=822876130]
+scale = Vector2(3, 3)
+script = ExtResource("1_6k1sf")
+damage_texture = ExtResource("2_h3ht7")
+speed_texture = ExtResource("3_wbh7r")
+health_texture = ExtResource("1_m273a")
+card_type = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1950173428]
+texture = ExtResource("1_m273a")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=959631285]
+shape = SubResource("RectangleShape2D_6k1sf")
+
+[connection signal="input_event" from="." to="." method="_on_input_event"]
