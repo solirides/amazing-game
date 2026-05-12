@@ -1,6 +1,7 @@
 extends CanvasLayer
 
 signal upgrades_finished
+signal upgrade_selected(player_id: int, type: Cards.CardType)
 
 @export var card_scene: PackedScene
 @export var card_spacing: float = 100.0
@@ -10,8 +11,6 @@ var p2_has_played: bool = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	add_to_group("Cards")
-	
 	var screen_size = get_viewport().get_visible_rect().size
 	
 	$SpawnPoint1.global_position = Vector2(screen_size.x / 4.0, screen_size.y / 2.0)
@@ -51,11 +50,13 @@ func _on_card_played(clicked_card: Cards, player_id: int, type: Cards.CardType) 
 		if child is Cards and child.player_owner == player_id and child != clicked_card:
 			child.discard()
 	
-	if (p1_has_played and p2_has_played):
+	upgrade_selected.emit(player_id, type)
+	
+	if (p1_has_played == true and p2_has_played == true):
 		end_selection_phase()
 
 func end_selection_phase() -> void:
-	await get_tree().create_timer(3.0).timeout
+	await get_tree().create_timer(2.0).timeout
 	
 	upgrades_finished.emit()
 	

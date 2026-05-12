@@ -34,7 +34,10 @@ func _ready() -> void:
 	
 	on_screen_position = position
 	
-	position.y -= drop_distance
+	if (player_owner == 2):
+		position.y -= drop_distance
+	else:
+		position.y += drop_distance
 	
 	off_screen_position = position
 	
