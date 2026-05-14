@@ -9,6 +9,11 @@ signal upgrade_selected(player_id: int, type: Cards.CardType)
 var p1_has_played: bool = false
 var p2_has_played: bool = false
 
+var max_time: float = 10.0
+
+var p1_cards: Array = []
+var p2_cards: Array = []
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	var screen_size = get_viewport().get_visible_rect().size
@@ -19,10 +24,22 @@ func _ready() -> void:
 	var starting_cards = [Cards.CardType.DAMAGE, Cards.CardType.HEALTH, Cards.CardType.SPEED]
 	spawn_hand(1, $SpawnPoint1.global_position, starting_cards)
 	spawn_hand(2, $SpawnPoint2.global_position, starting_cards)
+	
+	$SelectTimer.wait_time = max_time
+	
+	await get_tree().create_timer(2.0).timeout
+	
+	$SelectTimer.start()
+	
+	# var pulse_tween = create_tween().set_loops()
+	# pulse_tween.tween_property($DividingLine/CenterBox, "scale", Vector2(1.2, 1.2), 0.5).set_trans(Tween.TRANS_SINE)
+	# pulse_tween.tween_property($DividingLine/CenterBox, "scale", Vector2(1.0, 1.0), 0.5).set_trans(Tween.TRANS_SINE)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	pass
+	if (not $SelectTimer.is_stopped() == true):
+		var seconds_left = ceil($SelectTimer.time_left)
+		$DividingLine/CenterBox/TimerLabel.text = str(int(seconds_left))
 
 func spawn_hand(player_id: int, center_pos: Vector2, card_types: Array) -> void:
 	var hand_size = card_types.size()
@@ -37,6 +54,11 @@ func spawn_hand(player_id: int, center_pos: Vector2, card_types: Array) -> void:
 		card.card_type = card_types[i]
 		
 		card.card_played.connect(_on_card_played)
+		
+		if (player_id == 1):
+			p1_cards.append(card)
+		elif (player_id == 2):
+			p2_cards.append(card)
 		
 		add_child(card)
 
@@ -53,11 +75,22 @@ func _on_card_played(clicked_card: Cards, player_id: int, type: Cards.CardType) 
 	upgrade_selected.emit(player_id, type)
 	
 	if (p1_has_played == true and p2_has_played == true):
+		$SelectTimer.stop()
 		end_selection_phase()
 
 func end_selection_phase() -> void:
-	await get_tree().create_timer(2.0).timeout
+	await get_tree().create_timer(1.5).timeout
 	
 	upgrades_finished.emit()
 	
 	queue_free()
+
+func _on_select_timer_timeout() -> void:
+	$DividingLine/CenterBox/TimerLabel.text = "TIME!"
+	
+	if (p1_has_played == false):
+		var p1_random_value = randi_range(0, 2)
+		p1_cards[p1_random_value].select_card()
+	if (p2_has_played == false):
+		var p2_random_value = randi_range(0, 2)
+		p2_cards[p2_random_value].select_card()

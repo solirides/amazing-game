@@ -48,6 +48,42 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(0.54509807, 0, 0, 0.627451)
 
+[node name="CenterBox" type="ColorRect" parent="DividingLine" unique_id=292060979]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -80.0
+offset_top = -80.0
+offset_right = 80.0
+offset_bottom = 80.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = -0.2617994
+pivot_offset = Vector2(80, 80)
+color = Color(1, 0.84313726, 0, 1)
+
+[node name="TimerLabel" type="Label" parent="DividingLine/CenterBox" unique_id=1946863747]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -58.5
+offset_top = -68.5
+offset_right = 58.5
+offset_bottom = 68.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.38857287, 0.38857287, 0.38857287, 1)
+theme_override_font_sizes/font_size = 36
+text = "READY?"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="SpawnPoint1" type="Marker2D" parent="." unique_id=685869930]
 
 [node name="SpawnPoint2" type="Marker2D" parent="." unique_id=82111222]
@@ -77,3 +113,8 @@ size_flags_vertical = 0
 theme_override_font_sizes/font_size = 36
 text = "PLAYER 2"
 horizontal_alignment = 2
+
+[node name="SelectTimer" type="Timer" parent="." unique_id=871207302]
+one_shot = true
+
+[connection signal="timeout" from="SelectTimer" to="." method="_on_select_timer_timeout"]
