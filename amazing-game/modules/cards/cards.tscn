@@ -17,6 +17,7 @@ health_texture = ExtResource("1_m273a")
 card_type = 2
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1950173428]
+texture_filter = 1
 texture = ExtResource("1_m273a")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=959631285]

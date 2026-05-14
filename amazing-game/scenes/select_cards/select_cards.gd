@@ -1,4 +1,4 @@
-extends CanvasLayer
+extends Control
 
 signal upgrades_finished
 signal upgrade_selected(player_id: int, type: Cards.CardType)
@@ -18,8 +18,8 @@ var p2_cards: Array = []
 func _ready() -> void:
 	var screen_size = get_viewport().get_visible_rect().size
 	
-	$SpawnPoint1.global_position = Vector2(screen_size.x / 4.0, screen_size.y / 2.0)
-	$SpawnPoint2.global_position = Vector2(screen_size.x * 3.0 / 4.0, screen_size.y / 2.0)
+	$SpawnPoint1.global_position = Vector2(screen_size.x / 4.0, screen_size.y / 2.0) - screen_size/2.0
+	$SpawnPoint2.global_position = Vector2(screen_size.x * 3.0 / 4.0, screen_size.y / 2.0) - screen_size/2.0
 	
 	var starting_cards = [Cards.CardType.DAMAGE, Cards.CardType.HEALTH, Cards.CardType.SPEED]
 	spawn_hand(1, $SpawnPoint1.global_position, starting_cards)
