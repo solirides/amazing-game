@@ -31,15 +31,19 @@ func _ready() -> void:
 	
 	$SelectTimer.start()
 	
-	# var pulse_tween = create_tween().set_loops()
-	# pulse_tween.tween_property($DividingLine/CenterBox, "scale", Vector2(1.2, 1.2), 0.5).set_trans(Tween.TRANS_SINE)
-	# pulse_tween.tween_property($DividingLine/CenterBox, "scale", Vector2(1.0, 1.0), 0.5).set_trans(Tween.TRANS_SINE)
+	var spin_tween = create_tween().set_loops()
+	spin_tween.tween_property($DividingLine/CenterBox, "rotation_degrees", 45, 0.3).as_relative()
+	spin_tween.tween_interval(0.7)
+	
+	var pulse_tween = create_tween().set_loops()
+	pulse_tween.tween_property($DividingLine/CenterBox, "scale", Vector2(1.2, 1.2), 0.3).set_trans(Tween.TRANS_SINE)
+	pulse_tween.tween_property($DividingLine/CenterBox, "scale", Vector2(1.0, 1.0), 0.7).set_trans(Tween.TRANS_SINE)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	if (not $SelectTimer.is_stopped() == true):
 		var seconds_left = ceil($SelectTimer.time_left)
-		$DividingLine/CenterBox/TimerLabel.text = str(int(seconds_left))
+		$DividingLine/TimerLabel.text = str(int(seconds_left))
 
 func spawn_hand(player_id: int, center_pos: Vector2, card_types: Array) -> void:
 	var hand_size = card_types.size()
@@ -86,7 +90,7 @@ func end_selection_phase() -> void:
 	queue_free()
 
 func _on_select_timer_timeout() -> void:
-	$DividingLine/CenterBox/TimerLabel.text = "TIME!"
+	$DividingLine/TimerLabel.text = "TIME!"
 	
 	if (p1_has_played == false):
 		var p1_random_value = randi_range(0, 2)

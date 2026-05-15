@@ -15,6 +15,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 script = ExtResource("1_asv8b")
 card_scene = ExtResource("2_qg2st")
 
@@ -70,21 +71,23 @@ grow_horizontal = 2
 grow_vertical = 2
 rotation = -0.2617994
 pivot_offset = Vector2(80, 80)
+mouse_filter = 2
 color = Color(1, 0.84313726, 0, 1)
 
-[node name="TimerLabel" type="Label" parent="Control/DividingLine/CenterBox" unique_id=1946863747]
+[node name="TimerLabel" type="Label" parent="Control/DividingLine" unique_id=1946863747]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -58.5
-offset_top = -68.5
-offset_right = 58.5
-offset_bottom = 68.5
+offset_left = -80.99727
+offset_top = -49.213074
+offset_right = 50.00273
+offset_bottom = 87.78693
 grow_horizontal = 2
 grow_vertical = 2
+rotation = -0.2617994
 theme_override_colors/font_color = Color(0.38857287, 0.38857287, 0.38857287, 1)
 theme_override_font_sizes/font_size = 36
 text = "READY?"
@@ -133,4 +136,4 @@ one_shot = true
 visible = false
 texture = ExtResource("3_40vcb")
 
-[connection signal="timeout" from="Control/SelectTimer" to="." method="_on_select_timer_timeout"]
+[connection signal="timeout" from="Control/SelectTimer" to="Control" method="_on_select_timer_timeout"]
