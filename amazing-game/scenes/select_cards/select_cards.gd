@@ -16,10 +16,42 @@ var p2_cards: Array = []
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	var BgLeftPos = $DividingLine/BgLeft.position.x
+	var BgRightPos = $DividingLine/BgRight.position.x
+	var LabelP1Pos = $LabelP1.position.x
+	var LabelP2Pos = $LabelP2.position.x
+	
+	$DividingLine.scale.y = 0.0
+	$DividingLine/CenterBox.scale = Vector2.ZERO
+	$DividingLine/TimerLabel.scale = Vector2.ZERO
+	
+	$DividingLine/BgLeft.position.x = -8000
+	$DividingLine/BgRight.position.x = 4000
+	
+	$LabelP1.position.x = -2000
+	$LabelP2.position.x = 1000
+	
 	var screen_size = get_viewport().get_visible_rect().size
 	
-	$SpawnPoint1.global_position = Vector2(screen_size.x / 4.0, screen_size.y / 2.0) - screen_size/2.0
-	$SpawnPoint2.global_position = Vector2(screen_size.x * 3.0 / 4.0, screen_size.y / 2.0) - screen_size/2.0
+	$SpawnPoint1.global_position = Vector2(screen_size.x / 4.0, screen_size.y / 2.0) - screen_size / 2.0
+	$SpawnPoint2.global_position = Vector2(screen_size.x * 3.0 / 4.0, screen_size.y / 2.0) - screen_size / 2.0
+	
+	var intro_tween = create_tween()
+	intro_tween.tween_property($DividingLine, "scale:y", 1.0, 1.5).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+	
+	intro_tween.set_parallel(true)
+	intro_tween.tween_property($DividingLine/BgLeft, "position:x", BgLeftPos, 1.0).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+	intro_tween.tween_property($DividingLine/BgRight, "position:x", BgRightPos, 1.0).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+	intro_tween.tween_property($LabelP1, "position:x", LabelP1Pos, 0.7).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+	intro_tween.tween_property($LabelP2, "position:x", LabelP2Pos, 0.7).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+	intro_tween.set_parallel(false)
+	
+	# intro_tween.set_parallel(true)
+	intro_tween.tween_property($DividingLine/CenterBox, "scale", Vector2(1.0, 1.0), 0.5).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+	intro_tween.tween_property($DividingLine/TimerLabel, "scale", Vector2(1.0, 1.0), 0.5).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+	# intro_tween.set_parallel(false)
+	
+	# await intro_tween.finished
 	
 	var starting_cards = [Cards.CardType.DAMAGE, Cards.CardType.HEALTH, Cards.CardType.SPEED]
 	spawn_hand(1, $SpawnPoint1.global_position, starting_cards)
