@@ -14,6 +14,9 @@ var max_time: float = 10.0
 var p1_cards: Array = []
 var p2_cards: Array = []
 
+var spin_tween: Tween
+var pulse_tween: Tween
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	var BgLeftPos = $DividingLine/BgLeft.position.x
@@ -46,10 +49,8 @@ func _ready() -> void:
 	intro_tween.tween_property($LabelP2, "position:x", LabelP2Pos, 0.7).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
 	intro_tween.set_parallel(false)
 	
-	# intro_tween.set_parallel(true)
 	intro_tween.tween_property($DividingLine/CenterBox, "scale", Vector2(1.0, 1.0), 0.5).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 	intro_tween.tween_property($DividingLine/TimerLabel, "scale", Vector2(1.0, 1.0), 0.5).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
-	# intro_tween.set_parallel(false)
 	
 	# await intro_tween.finished
 	
@@ -63,11 +64,11 @@ func _ready() -> void:
 	
 	$SelectTimer.start()
 	
-	var spin_tween = create_tween().set_loops()
+	spin_tween = create_tween().set_loops()
 	spin_tween.tween_property($DividingLine/CenterBox, "rotation_degrees", 45, 0.3).as_relative()
 	spin_tween.tween_interval(0.7)
 	
-	var pulse_tween = create_tween().set_loops()
+	pulse_tween = create_tween().set_loops()
 	pulse_tween.tween_property($DividingLine/CenterBox, "scale", Vector2(1.2, 1.2), 0.3).set_trans(Tween.TRANS_SINE)
 	pulse_tween.tween_property($DividingLine/CenterBox, "scale", Vector2(1.0, 1.0), 0.7).set_trans(Tween.TRANS_SINE)
 
@@ -115,7 +116,24 @@ func _on_card_played(clicked_card: Cards, player_id: int, type: Cards.CardType) 
 		end_selection_phase()
 
 func end_selection_phase() -> void:
-	await get_tree().create_timer(1.5).timeout
+	spin_tween.kill()
+	pulse_tween.kill()
+	
+	var exit_tween = create_tween()
+	
+	exit_tween.tween_property($DividingLine/TimerLabel, "scale", Vector2(0, 0), 0.5).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_IN)
+	exit_tween.tween_property($DividingLine/CenterBox, "scale", Vector2(0, 0), 0.5).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_IN)
+	
+	exit_tween.set_parallel(true)
+	exit_tween.tween_property($DividingLine/BgLeft, "position:x", -8000, 1.0).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+	exit_tween.tween_property($DividingLine/BgRight, "position:x", 4000, 1.0).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+	exit_tween.tween_property($LabelP1, "position:x", -2000, 1.0).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+	exit_tween.tween_property($LabelP2, "position:x", 1000, 1.0).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+	
+	exit_tween.tween_property($DividingLine, "scale:y", 0.0, 0.5).set_delay(0.3).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+	exit_tween.set_parallel(false)
+	
+	await exit_tween.finished
 	
 	upgrades_finished.emit()
 	
@@ -123,6 +141,8 @@ func end_selection_phase() -> void:
 
 func _on_select_timer_timeout() -> void:
 	$DividingLine/TimerLabel.text = "TIME!"
+	
+	await get_tree().create_timer(0.5).timeout
 	
 	if (p1_has_played == false):
 		var p1_random_value = randi_range(0, 2)
