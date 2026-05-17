@@ -40,6 +40,7 @@ script = ExtResource("5_j2gmx")
 circle_node = NodePath("../CircleDisplay")
 
 [node name="Wall" parent="." unique_id=858099970 instance=ExtResource("2_rwgxs")]
+base_speed = 2.0
 base_health = 100
 
 [node name="PinJoint2D" type="PinJoint2D" parent="." unique_id=1980028934]
@@ -76,7 +77,7 @@ offset_right = 105.0
 offset_bottom = -178.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "bullet: 10 damage"
+text = "bullet"
 label_settings = SubResource("LabelSettings_k0juu")
 horizontal_alignment = 1
 vertical_alignment = 1

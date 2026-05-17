@@ -1,8 +1,8 @@
 class_name Player
 extends RigidBody2D
 
-
-@export var base_speed:float = 12
+@export var base_damage:int = 20
+@export var base_speed:float = 6.0
 @export var base_accel:float = 200
 @export var base_decel:float = 3
 @export var base_health:int = 100
@@ -14,10 +14,18 @@ extends RigidBody2D
 @onready var decel = base_decel
 @onready var speed = base_speed
 @onready var ammo = base_ammo
+@onready var bullet_damage = base_damage
+
 var theta = 0
 var can_move = true
 var alive_state = true
 var can_shoot = false
+
+var upgrades = {
+	"health":0,
+	"speed":0,
+	"damage":0
+}
 
 #var max_damage_in_tick = 0
 
@@ -84,6 +92,20 @@ func respawn():
 	if modulate_tween:
 		modulate_tween.kill()
 	modulate = Color(1,1,1,1)
+
+func calculate_upgrades():
+	pass
+
+func add_upgrade(stat:String):
+	if stat not in upgrades.keys():
+		upgrades[stat] = 0
+	upgrades[stat] += 1
+	
+	var upgrade_amount = 0.10
+	
+	self.set(stat, self.get("base_" + stat) * (1.0 + upgrades[stat] * upgrade_amount))
+	print(stat + " " + str(self.get(stat)))
+	
 
 #func _physics_process(delta: float) -> void:
 	#if max_damage_in_tick > 0:

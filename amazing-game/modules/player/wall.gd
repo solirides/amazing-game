@@ -43,9 +43,9 @@ func _physics_process(delta: float) -> void:
 		#angular_velocity = clamp(angular_velocity, -speed/inner_radius, speed/inner_radius)
 		
 		if Input.is_action_pressed("wall_ccw"):
-			theta -= speed / inner_radius * delta
+			theta -= speed * delta
 		if Input.is_action_pressed("wall_cw"):
-			theta += speed / inner_radius * delta
+			theta += speed * delta
 	
 		self.rotation = theta
 		#self.global_position = Vector2(1,0).rotated(theta)

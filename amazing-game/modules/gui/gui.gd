@@ -11,6 +11,7 @@ func _on_swap_players(state:bool):
 	display_round_text()
 
 func display_round_text():
+	print("display text")
 	var text = "Round " + str(GameManager.world.round_num)
 	round_label.text = text
 	anim_player.play("round")

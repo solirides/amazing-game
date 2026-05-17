@@ -1,15 +1,15 @@
 extends Player
 
-@export var rotation_speed = 0.1
+#@export var rotation_speed = 0.1
 @export var bullet_speed = 1000
-@export var base_damage = 20
+
 @export var infinite_shooting = false
 
 @export var circle_node:Node
 
 # ligma ligma on the wall
 # whos is the skibibidiest onf them all
-@onready var bullet_damage = base_damage
+
 
 var last_pulse_state_time = 0
 var pulse_state = [0, false]
@@ -74,9 +74,9 @@ func _physics_process(delta: float) -> void:
 			shoot(damage)
 	if can_move:
 		if Input.is_action_pressed("turret_ccw"):
-			theta -= rotation_speed
+			theta -= speed * delta
 		if Input.is_action_pressed("turret_cw"):
-			theta += rotation_speed
+			theta += speed * delta
 	$Sprite2D.global_rotation = theta + PI*0.5
 
 func _input(event: InputEvent) -> void:

@@ -142,6 +142,17 @@ func show_card_selection():
 
 func _on_upgrade_selected(player_id: int, type: Cards.CardType):
 	print("player " + str(player_id) + " selected " + str(type))
+	
+	var player
+	if player_id == 0:
+		player = turret_node
+	else:
+		player = wall_node
+	
+	var stat = Cards.card_to_string[type]
+	
+	# very sketchy way to change the enum into a string
+	player.add_upgrade(stat)
 
 func _on_upgrades_finished():
 	advance_round()
