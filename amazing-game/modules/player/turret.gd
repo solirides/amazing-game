@@ -23,15 +23,15 @@ func _ready() -> void:
 	GameManager.turret = self
 	GameManager.players_swapped.connect(swap_player)
 	
-	await get_tree().process_frame
-	await get_tree().process_frame
-	await get_tree().process_frame
-	await get_tree().process_frame
-	await get_tree().process_frame
-	await get_tree().process_frame
-	await get_tree().process_frame
-	await get_tree().process_frame
-	await get_tree().process_frame
+	#await get_tree().process_frame
+	#await get_tree().process_frame
+	#await get_tree().process_frame
+	#await get_tree().process_frame
+	#await get_tree().process_frame
+	#await get_tree().process_frame
+	#await get_tree().process_frame
+	#await get_tree().process_frame
+	#await get_tree().process_frame
 	for i in circle_node.timing_ranges:
 		pulse_states.append(false)
 
@@ -50,8 +50,9 @@ func _physics_process(delta: float) -> void:
 	
 	#print(shot_bullet)
 	
-	# note: "left_mouse" is an input set in Project>Project settings>Input map
-	if Input.is_action_just_pressed("turret_attack") or Input.is_action_just_pressed("left_mouse"):
+	# note: "left_mouse" is an input set in Project>Project settings>Input ma[
+	# Input.is_action_just_pressed("left_mouse")
+	if Input.is_action_just_pressed("turret_attack"):
 		if pulse_states[0] == true and (shot_bullet == false or infinite_shooting) and ammo > 0:
 			shot_bullet = true
 			var damage = bullet_damage
@@ -71,11 +72,11 @@ func _physics_process(delta: float) -> void:
 				#
 			
 			shoot(damage)
-	
-	if Input.is_action_pressed("turret_ccw"):
-		theta -= rotation_speed
-	if Input.is_action_pressed("turret_cw"):
-		theta += rotation_speed
+	if can_move:
+		if Input.is_action_pressed("turret_ccw"):
+			theta -= rotation_speed
+		if Input.is_action_pressed("turret_cw"):
+			theta += rotation_speed
 	$Sprite2D.global_rotation = theta + PI*0.5
 
 func _input(event: InputEvent) -> void:

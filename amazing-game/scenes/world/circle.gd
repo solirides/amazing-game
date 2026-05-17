@@ -27,12 +27,13 @@ var current_radius = 0
 var radius_tween:Tween
 var draw_pulsing_circle = true
 var center_time = 0
+var send_pulses = false
 
 signal pulse_reached(state_i:int, damage_scale:float, start_or_end_state:bool)
 
 func _ready() -> void:
 	modulate = Color(1,1,1,0.5)
-	circle_pulse(pulse_duration)
+	#circle_pulse(pulse_duration)
 
 func _process(delta: float) -> void:
 	queue_redraw()
@@ -74,7 +75,8 @@ func _on_tween_finished():
 	draw_pulsing_circle = false
 	var time = randf_range(3,7)
 	await get_tree().create_timer(time).timeout
-	circle_pulse(pulse_duration)
+	if send_pulses:
+		circle_pulse(pulse_duration)
 
 func _draw() -> void:
 	
@@ -89,3 +91,11 @@ func _draw() -> void:
 			#area
 			draw_circle(Vector2(0,0), current_radius, colors[i], false, timing_ranges[i][0]*speed * 2.0, true)
 	
+
+func start_combat(delay:float):
+	await get_tree().create_timer(delay).timeout
+	send_pulses = true
+	circle_pulse(pulse_duration)
+
+func end_combat():
+	send_pulses = false

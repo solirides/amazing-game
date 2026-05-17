@@ -7,10 +7,16 @@ extends Node2D
 @onready var camera = $Camera2D
 @onready var info_label = $Label2
 
+var select_cards_scene = preload("res://scenes/select_cards/select_cards.tscn")
+
 var filled_circle_coords = []
 var filled_circle_hex = []
 
+var in_combat = false
+
 var round_num = 1
+
+var game_stage = "combat"
 
 func _ready() -> void:
 	GameManager.world = self
@@ -21,6 +27,7 @@ func _ready() -> void:
 	create_collision_polygon()
 	GameManager.swap_players(false, true)
 	#set_player_colors()
+	start_combat(2.0)
 
 func create_circle(radius:float, res:int, sign:int = 0, offset:Vector2 = Vector2(0,0)):
 	# make a circle
@@ -101,12 +108,12 @@ func set_player_colors():
 		
 
 func _on_player_death():
-	#GameManager.turret.queue_respawn()
-	advance_round()
-
+	#turret_node.queue_respawn()
+	show_card_selection()
 
 func _on_turret_alive_state_changed(state: bool) -> void:
-	pass # Replace with function body.
+	if state == false:
+		_on_player_death()
 
 func _on_wall_alive_state_changed(state: bool) -> void:
 	if state == false:
@@ -115,17 +122,48 @@ func _on_wall_alive_state_changed(state: bool) -> void:
 func _on_swap_players(state:bool):
 	pass
 
+func show_card_selection():
+
+	if game_stage != "card selection":
+		game_stage = "card selection"
+	else:
+		return
+		
+	print("show card selection")
+	turret_node.can_move = false
+	wall_node.can_move = false
+	in_combat = false
+	circle_display.end_combat()
+	
+	var a = select_cards_scene.instantiate()
+	add_child(a)
+	a.get_node("Control").upgrades_finished.connect(_on_upgrades_finished)
+	a.get_node("Control").upgrade_selected.connect(_on_upgrade_selected)
+
+func _on_upgrade_selected(player_id: int, type: Cards.CardType):
+	print("player " + str(player_id) + " selected " + str(type))
+
+func _on_upgrades_finished():
+	advance_round()
+
 func advance_round():
 	round_num += 1
-	GameManager.turret.queue_respawn(3.0)
-	GameManager.wall.queue_respawn(3.0)
-	GameManager.turret.can_move = false
-	GameManager.wall.can_move = false
+	turret_node.queue_respawn(3.0)
+	wall_node.queue_respawn(3.0)
+	turret_node.can_move = false
+	wall_node.can_move = false
 	GameManager.swap_players(!GameManager.swap_state)
+	start_combat(5.0)
+
+func start_combat(delay:float):
+	game_stage = "combat"
+	in_combat = true
+	circle_display.start_combat(delay)
 
 func _on_turret_ammo_changed(ammo: int) -> void:
 	print(ammo)
 	camera.shake()
 	if ammo == 0:
 		#camera.shake()
-		advance_round()
+		show_card_selection()
+		#advance_round()

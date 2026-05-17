@@ -2,10 +2,10 @@
 
 [ext_resource type="Script" uid="uid://dhrqkc2wg66pj" path="res://scenes/select_cards/select_cards.gd" id="1_asv8b"]
 [ext_resource type="PackedScene" uid="uid://civa8dd8deecp" path="res://modules/cards/cards.tscn" id="2_qg2st"]
-[ext_resource type="Texture2D" uid="uid://wr8lqm38ij8g" path="res://icon.svg" id="3_40vcb"]
 
 [node name="SelectCards" type="CanvasLayer" unique_id=514107963]
 process_mode = 3
+layer = 100
 follow_viewport_enabled = true
 
 [node name="Control" type="Control" parent="." unique_id=901978605]
@@ -131,9 +131,5 @@ horizontal_alignment = 2
 one_shot = true
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=290759023]
-
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1753815152]
-visible = false
-texture = ExtResource("3_40vcb")
 
 [connection signal="timeout" from="Control/SelectTimer" to="Control" method="_on_select_timer_timeout"]

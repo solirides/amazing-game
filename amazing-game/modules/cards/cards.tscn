@@ -9,6 +9,7 @@
 size = Vector2(27, 43)
 
 [node name="cards" type="Area2D" unique_id=822876130]
+z_index = 10
 scale = Vector2(3, 3)
 script = ExtResource("1_6k1sf")
 damage_texture = ExtResource("2_h3ht7")

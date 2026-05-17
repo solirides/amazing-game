@@ -43,19 +43,7 @@ circle_node = NodePath("../CircleDisplay")
 base_health = 100
 
 [node name="PinJoint2D" type="PinJoint2D" parent="." unique_id=1980028934]
-node_a = NodePath("../StaticBody2D")
 node_b = NodePath("../Wall")
-
-[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=217485117]
-collision_layer = 8
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D" unique_id=1479289457]
-visible = false
-
-[node name="Polygon2D" type="Polygon2D" parent="StaticBody2D" unique_id=2035311204]
-visible = false
-color = Color(0.93124247, 0.74480927, 0, 1)
-polygon = PackedVector2Array(382, -72, 637, 236, 144, 269, 281, -123, 332, 163)
 
 [node name="Label" type="Label" parent="." unique_id=241331336]
 anchors_preset = 8
@@ -135,6 +123,7 @@ value = 65.0
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1441546883]
 
 [node name="GUI" parent="CanvasLayer" unique_id=942640815 instance=ExtResource("9_1yooq")]
+mouse_filter = 2
 
 [connection signal="alive_state_changed" from="Turret" to="." method="_on_turret_alive_state_changed"]
 [connection signal="ammo_changed" from="Turret" to="." method="_on_turret_ammo_changed"]
