@@ -35,14 +35,10 @@ texture = ExtResource("2_gcmdx")
 
 [node name="Polygon2D" type="Polygon2D" parent="." unique_id=505005700]
 
-[node name="CriticalSpot" type="RigidBody2D" parent="." unique_id=1488859125]
+[node name="CriticalSpot" type="Area2D" parent="." unique_id=1107000509]
 collision_layer = 2
 collision_mask = 5
 collision_priority = 0.1
-freeze = true
-freeze_mode = 1
-contact_monitor = true
-max_contacts_reported = 2
 
 [node name="Polygon2D" type="Polygon2D" parent="CriticalSpot" unique_id=205929824]
 material = SubResource("ShaderMaterial_kiy7c")
@@ -53,4 +49,3 @@ color = Color(0.9, 0.20700002, 0.4842001, 1)
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." unique_id=790185396]
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
-[connection signal="body_entered" from="CriticalSpot" to="." method="_on_critical_spot_body_entered"]

@@ -67,7 +67,7 @@ func circle_pulse(duration:float):
 func _on_pulse_section_reached(state_i:int, damage_scale:float, start_or_end_state:bool):
 	pulse_reached.emit(state_i, damage_scale, start_or_end_state)
 	
-	print("state: " + str(state_i) + " " + str(start_or_end_state))
+	#print("state: " + str(state_i) + " " + str(start_or_end_state))
 	
 
 func _on_tween_finished():

@@ -90,7 +90,7 @@ func create_collision_polygon():
 			collision_poly.polygon = shapes[i]
 			$StaticBody2D.add_child(collision_poly)
 		
-	print(shapes)
+	#print(shapes)
 	#for s in shapes:
 		#var poly = Polygon2D.new()
 		#poly.polygon = s
