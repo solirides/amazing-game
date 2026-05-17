@@ -4,11 +4,16 @@ extends Node
 var world:Node
 var turret:Node
 var wall:Node
+var player1:Node
+var player2:Node
+
 @export var player1_color:Color = Color(0.0, 0.7, 1.0, 1.0)
 @export var player2_color:Color = Color(1.0, 0.633, 0.0, 1.0)
 
 @export var player1_turret_sprite:Texture2D
+@export var player1_wall_sprite:Texture2D
 @export var player2_turret_sprite:Texture2D
+@export var player2_wall_sprite:Texture2D
 
 # false:original controls
 # true:controls have been swapped
@@ -31,8 +36,22 @@ func swap_players(state:bool, force:bool=false):
 	if state != swap_state or force:
 		swap_state = state
 		swap_player_controls(state)
+		swap_stats()
+		var temp = player1
+		var player1 = player2
+		var player2 = temp
 		players_swapped.emit(state)
 
+func swap_stats():
+	var stats = ["health", "shield", "bullet_damage", "speed", "bullet_speed"]
+	var more_stats = []
+	for stat in stats:
+		more_stats.append("base_" + stat)
+	stats.append_array(more_stats)
+	for stat in stats:
+		var temp = player1.get(stat)
+		player1.set(stat, player2.get(stat))
+		player2.set(stat, temp)
 
 var actions_to_swap = [
 		["turret_cw", "wall_cw"],

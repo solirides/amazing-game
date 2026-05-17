@@ -6,9 +6,9 @@ signal card_played(clicked_card: Cards, player_id: int, type: CardType)
 
 enum CardType {DAMAGE, SPEED, HEALTH}
 const card_to_string = {
-	CardType.DAMAGE : "damage",
+	CardType.DAMAGE : "bullet_damage",
 	CardType.SPEED : "speed",
-	CardType.HEALTH : "health"
+	CardType.HEALTH : "shield" # this is not regular health
 }
 
 @export var damage_texture: Texture2D

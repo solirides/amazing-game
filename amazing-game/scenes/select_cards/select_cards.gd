@@ -39,6 +39,16 @@ func _ready() -> void:
 	$SpawnPoint1.global_position = Vector2(screen_size.x / 4.0, screen_size.y / 2.0) - screen_size / 2.0
 	$SpawnPoint2.global_position = Vector2(screen_size.x * 3.0 / 4.0, screen_size.y / 2.0) - screen_size / 2.0
 	
+	# this is opposite of the current state since players will be swapped after card selection
+	if GameManager.swap_state == true:
+		$P1Role/Sprite2D.texture = GameManager.player1_turret_sprite
+		$P2Role/Sprite2D.texture = GameManager.player2_wall_sprite
+		
+	else:
+		$P1Role/Sprite2D.texture = GameManager.player1_wall_sprite
+		$P2Role/Sprite2D.texture = GameManager.player2_turret_sprite
+	
+	
 	var intro_tween = create_tween()
 	intro_tween.tween_property($DividingLine, "scale:y", 1.0, 1.5).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
 	

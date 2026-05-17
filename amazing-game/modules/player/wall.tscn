@@ -25,9 +25,6 @@ freeze_mode = 1
 contact_monitor = true
 max_contacts_reported = 5
 script = ExtResource("1_mgm2i")
-base_speed = 500.0
-base_accel = 20.0
-base_health = 40
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=45151107]
 visible = false

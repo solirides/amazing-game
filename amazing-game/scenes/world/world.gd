@@ -144,10 +144,10 @@ func _on_upgrade_selected(player_id: int, type: Cards.CardType):
 	print("player " + str(player_id) + " selected " + str(type))
 	
 	var player
-	if player_id == 0:
-		player = turret_node
+	if player_id == 1:
+		player = GameManager.player1
 	else:
-		player = wall_node
+		player = GameManager.player2
 	
 	var stat = Cards.card_to_string[type]
 	

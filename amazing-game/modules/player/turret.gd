@@ -1,8 +1,6 @@
 extends Player
 
 #@export var rotation_speed = 0.1
-@export var bullet_speed = 1000
-
 @export var infinite_shooting = false
 
 @export var circle_node:Node
@@ -21,6 +19,7 @@ var shot_bullet = true
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	GameManager.turret = self
+	GameManager.player1 = self
 	GameManager.players_swapped.connect(swap_player)
 	
 	#await get_tree().process_frame

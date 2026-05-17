@@ -40,8 +40,6 @@ script = ExtResource("5_j2gmx")
 circle_node = NodePath("../CircleDisplay")
 
 [node name="Wall" parent="." unique_id=858099970 instance=ExtResource("2_rwgxs")]
-base_speed = 2.0
-base_health = 100
 
 [node name="PinJoint2D" type="PinJoint2D" parent="." unique_id=1980028934]
 node_b = NodePath("../Wall")
@@ -91,34 +89,27 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("6_t5ptc")
 
-[node name="Player1Health" type="ProgressBar" parent="HealthBars" unique_id=812177010]
-custom_minimum_size = Vector2(300, 40)
+[node name="HBoxContainer" type="HBoxContainer" parent="HealthBars" unique_id=724801477]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -150.0
-offset_top = -328.0
-offset_right = 150.0
-offset_bottom = -288.0
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -304.0
+offset_top = -320.0
+offset_right = 300.0
+offset_bottom = -280.0
 grow_horizontal = 2
-grow_vertical = 2
+
+[node name="Health" type="ProgressBar" parent="HealthBars/HBoxContainer" unique_id=812177010]
+custom_minimum_size = Vector2(300, 40)
+layout_mode = 2
 theme_override_styles/fill = SubResource("StyleBoxFlat_bq33v")
 value = 65.0
 
-[node name="Player2Health" type="ProgressBar" parent="HealthBars" unique_id=1782861849]
-visible = false
+[node name="Shield" type="ProgressBar" parent="HealthBars/HBoxContainer" unique_id=658988206]
 custom_minimum_size = Vector2(300, 40)
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -150.0
-offset_top = 292.0
-offset_right = 150.0
-offset_bottom = 332.0
-grow_horizontal = 2
-grow_vertical = 2
+layout_mode = 2
+theme_override_styles/fill = SubResource("StyleBoxFlat_bq33v")
 value = 65.0
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1441546883]

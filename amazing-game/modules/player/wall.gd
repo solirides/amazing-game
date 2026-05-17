@@ -8,6 +8,7 @@ extends Player
 
 func _ready() -> void:
 	GameManager.wall = self
+	GameManager.player2 = self
 	GameManager.players_swapped.connect(swap_player)
 	# set collision shape
 	var polygon = create_polygon(arc_angle)
@@ -43,9 +44,9 @@ func _physics_process(delta: float) -> void:
 		#angular_velocity = clamp(angular_velocity, -speed/inner_radius, speed/inner_radius)
 		
 		if Input.is_action_pressed("wall_ccw"):
-			theta -= speed * delta
+			theta -= speed * delta / 4.0
 		if Input.is_action_pressed("wall_cw"):
-			theta += speed * delta
+			theta += speed * delta / 4.0
 	
 		self.rotation = theta
 		#self.global_position = Vector2(1,0).rotated(theta)

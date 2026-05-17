@@ -1,20 +1,24 @@
 class_name Player
 extends RigidBody2D
 
-@export var base_damage:int = 20
+@export var base_bullet_speed = 1000
+@export var base_bullet_damage:int = 20
+@export var base_shield:int = 0
 @export var base_speed:float = 6.0
-@export var base_accel:float = 200
+@export var base_accel:float = 20
 @export var base_decel:float = 3
 @export var base_health:int = 100
 @export var respawn_time:float = 4.0
 @export var base_ammo:int = 3
 
+@onready var bullet_speed = base_bullet_speed
 @onready var health = base_health
 @onready var accel = base_accel
 @onready var decel = base_decel
 @onready var speed = base_speed
 @onready var ammo = base_ammo
-@onready var bullet_damage = base_damage
+@onready var bullet_damage = base_bullet_damage
+var shield:int = 0
 
 var theta = 0
 var can_move = true
@@ -22,9 +26,15 @@ var alive_state = true
 var can_shoot = false
 
 var upgrades = {
-	"health":0,
+	"shield":0,
 	"speed":0,
 	"damage":0
+}
+
+var upgrade_multipliers = {
+	"shield":30,
+	"speed":0.15,
+	"damage":0.20
 }
 
 #var max_damage_in_tick = 0
@@ -46,7 +56,10 @@ func _on_body_entered(body: Node) -> void:
 func damage(amount:int):
 	if alive_state == false:
 		return
-	health -= amount
+	shield = max(0, shield - amount)
+	var real_damage = max(0, amount - shield)
+	
+	health -= real_damage
 	if health <= 0:
 		print("player dead")
 		die()
@@ -102,9 +115,14 @@ func add_upgrade(stat:String):
 	upgrades[stat] += 1
 	
 	var upgrade_amount = 0.10
+	if stat in upgrade_multipliers.keys():
+		upgrade_amount = upgrade_multipliers[stat]
+	var value = get("base_" + stat) * (1.0 + upgrades[stat] * upgrade_amount)
+	if stat == "shield":
+		value = get("base_" + stat) + upgrade_amount
 	
-	self.set(stat, self.get("base_" + stat) * (1.0 + upgrades[stat] * upgrade_amount))
-	print(stat + " " + str(self.get(stat)))
+	set(stat, value)
+	print(stat + " " + str(get(stat)))
 	
 
 #func _physics_process(delta: float) -> void:

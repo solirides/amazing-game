@@ -2,7 +2,9 @@
 
 [ext_resource type="Script" uid="uid://cofa1xwvci1c5" path="res://modules/global/game_manager.gd" id="1_2n3o6"]
 [ext_resource type="Texture2D" uid="uid://83kovqwpjy1p" path="res://assets/textures/p1v1.png" id="2_nse5p"]
+[ext_resource type="Texture2D" uid="uid://damefsp7bv2rn" path="res://assets/textures/p1wall.png" id="3_4apr6"]
 [ext_resource type="Texture2D" uid="uid://dqccwdcm1ce3v" path="res://assets/textures/p2v1.png" id="3_w5nje"]
+[ext_resource type="Texture2D" uid="uid://drrhurglhe6fc" path="res://assets/textures/p2wall.png" id="5_4la1x"]
 
 [node name="GameManager" type="Node" unique_id=1735510353]
 process_mode = 3
@@ -10,4 +12,6 @@ script = ExtResource("1_2n3o6")
 player1_color = Color(0, 0.6901961, 1, 1)
 player2_color = Color(0.8352941, 0, 0, 1)
 player1_turret_sprite = ExtResource("2_nse5p")
+player1_wall_sprite = ExtResource("3_4apr6")
 player2_turret_sprite = ExtResource("3_w5nje")
+player2_wall_sprite = ExtResource("5_4la1x")
