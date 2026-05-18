@@ -21,6 +21,7 @@ func _ready() -> void:
 	GameManager.turret = self
 	GameManager.player1 = self
 	GameManager.players_swapped.connect(swap_player)
+	is_hacking = GameManager.hacks
 	
 	#await get_tree().process_frame
 	#await get_tree().process_frame
@@ -95,13 +96,18 @@ func shoot(damage:float):
 	#instance.rotate(direction.angle())
 	instance.rotate(theta)
 	instance.damage = damage
+	
+	if is_hacking:
+		instance.target = GameManager.wall.critical_target_spot
+		instance.homing = true
 	#instance.scale = Vector2(damage, damage)
+	
 	instance.get_node("Polygon2D").color = $Polygon2D.modulate
 	instance.get_node("Label").text = str(int(damage))
 	GameManager.world.info_label.text = "bullet damage: " + str(damage)
 	print("spawned bullet with damage: " + str(damage))
 	
-	get_tree().root.add_child(instance)
+	get_tree().current_scene.add_child(instance)
 	
 	ammo -= 1
 	ammo_changed.emit(ammo)

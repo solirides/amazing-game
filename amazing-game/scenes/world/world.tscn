@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://b5dajo7xuf5e6" path="res://scenes/world/world.gd" id="1_k0juu"]
 [ext_resource type="PackedScene" uid="uid://b65jgvaki42my" path="res://modules/player/turret.tscn" id="1_nnsk1"]
+[ext_resource type="Shader" uid="uid://bac6h2uqtxcn3" path="res://assets/shaders/sunburst.gdshader" id="2_gb53w"]
 [ext_resource type="PackedScene" uid="uid://dyy8y5xftvvi3" path="res://modules/player/wall.tscn" id="2_rwgxs"]
 [ext_resource type="Script" uid="uid://cd4g7rhnnvep4" path="res://scenes/world/camera.gd" id="2_v5dby"]
 [ext_resource type="Script" uid="uid://bmt4rrbbbby3w" path="res://scenes/world/circle.gd" id="3_4wyf3"]
@@ -10,17 +11,41 @@
 [ext_resource type="Script" uid="uid://cyfvt1ht8toqp" path="res://scenes/world/health_bars.gd" id="6_t5ptc"]
 [ext_resource type="PackedScene" uid="uid://wd35i56nmnkx" path="res://modules/gui/gui.tscn" id="9_1yooq"]
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5qq27"]
+shader = ExtResource("2_gb53w")
+shader_parameter/color1 = Color(0.1426242, 0.0863845, 0.15017721, 1)
+shader_parameter/color2 = Color(0.19059232, 0.14188668, 0.21495515, 1)
+shader_parameter/repeat_amount = 30.0
+shader_parameter/mod_value = 2.0
+shader_parameter/rotation_speed = 0.02
+shader_parameter/use_rainbow = false
+shader_parameter/rainbow_speed = 0.5
+shader_parameter/rainbow_opacity = 1.0
+
 [sub_resource type="LabelSettings" id="LabelSettings_k0juu"]
 font_size = 20
 font_color = Color(0.728822, 0.728822, 0.728822, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bq33v"]
 
+[sub_resource type="LabelSettings" id="LabelSettings_1yooq"]
+
 [node name="World" type="Node2D" unique_id=345513547 node_paths=PackedStringArray("wall_node", "turret_node", "circle_display")]
 script = ExtResource("1_k0juu")
 wall_node = NodePath("Wall")
 turret_node = NodePath("Turret")
 circle_display = NodePath("CircleDisplay")
+
+[node name="Background" type="CanvasLayer" parent="." unique_id=905452983]
+layer = -10
+
+[node name="ColorRect" type="ColorRect" parent="Background" unique_id=1540085153]
+material = SubResource("ShaderMaterial_5qq27")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1396958463 node_paths=PackedStringArray("target")]
 script = ExtResource("2_v5dby")
@@ -105,12 +130,38 @@ custom_minimum_size = Vector2(300, 40)
 layout_mode = 2
 theme_override_styles/fill = SubResource("StyleBoxFlat_bq33v")
 value = 65.0
+show_percentage = false
+
+[node name="Label" type="Label" parent="HealthBars/HBoxContainer/Health" unique_id=91340137]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "123/123"
+label_settings = SubResource("LabelSettings_1yooq")
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Shield" type="ProgressBar" parent="HealthBars/HBoxContainer" unique_id=658988206]
 custom_minimum_size = Vector2(300, 40)
 layout_mode = 2
 theme_override_styles/fill = SubResource("StyleBoxFlat_bq33v")
 value = 65.0
+show_percentage = false
+
+[node name="Label" type="Label" parent="HealthBars/HBoxContainer/Shield" unique_id=462941091]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "123/123"
+label_settings = SubResource("LabelSettings_1yooq")
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1441546883]
 

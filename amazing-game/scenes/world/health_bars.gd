@@ -2,7 +2,9 @@ extends Control
 
 
 @onready var bar1 = $HBoxContainer/Health
+@onready var label1 = $HBoxContainer/Health/Label
 @onready var bar2 = $HBoxContainer/Shield
+@onready var label2 = $HBoxContainer/Shield/Label
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -12,7 +14,13 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	bar1.value = GameManager.wall.health
+	bar1.max_value = GameManager.wall.base_health
+	label1.text = str(int(GameManager.wall.health))
+	
 	bar2.value = GameManager.wall.shield
+	#bar2.max_value = GameManager.wall.shield
+	bar2.max_value = GameManager.wall.base_health
+	label2.text = str(int(GameManager.wall.shield))
 	#bar2.value = GameManager.turret.health
 
 #stylebox_2 = get_theme_stylebox("panel").duplicate()

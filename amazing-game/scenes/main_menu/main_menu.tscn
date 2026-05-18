@@ -54,7 +54,7 @@ text = "don't start"
 [node name="Mystery" type="Button" parent="CenterContainer" unique_id=1987323306]
 layout_mode = 2
 theme = ExtResource("2_ekxnf")
-text = "mystery button :)"
+text = "mystery button"
 
 [connection signal="pressed" from="CenterContainer/Start" to="." method="_on_start_pressed"]
 [connection signal="pressed" from="CenterContainer/Quit" to="." method="_on_quit_pressed"]

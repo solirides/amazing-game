@@ -6,6 +6,8 @@ extends Player
 @export var arc_angle:float = 0.7
 @export var critical_damage_multiplier:float = 2
 
+@onready var critical_target_spot = $CriticalSpot/Marker2D
+
 func _ready() -> void:
 	GameManager.wall = self
 	GameManager.player2 = self
@@ -14,6 +16,7 @@ func _ready() -> void:
 	var polygon = create_polygon(arc_angle)
 	$Polygon2D.polygon = polygon
 	$CollisionPolygon2D.polygon = polygon
+	critical_target_spot.position.x = inner_radius
 	
 	create_critical_spot(0.2)
 

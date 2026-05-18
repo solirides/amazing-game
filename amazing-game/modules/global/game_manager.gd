@@ -18,6 +18,8 @@ var player2:Node
 # false:original controls
 # true:controls have been swapped
 var swap_state = false
+var hacks = false
+var transition_node:Node
 
 signal players_swapped(state:bool)
 
@@ -29,8 +31,9 @@ func _process(delta: float) -> void:
 	pass
 
 func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("ui_cancel"):
-		get_tree().paused = !get_tree().paused
+	pass
+	#if event.is_action_pressed("ui_cancel"):
+		#get_tree().paused = !get_tree().paused
 
 func swap_players(state:bool, force:bool=false):
 	if state != swap_state or force:
@@ -91,3 +94,28 @@ func save_inputs():
 		
 		saved_actions_p1.append(events1)
 		saved_actions_p2.append(events2)
+
+var transition_scene = preload("res://modules/transition/transition.tscn")
+
+func switch_scene(file_path:String):
+	transition_node = transition_scene.instantiate()
+	self.add_child(transition_node)
+	
+	var time = 0.3
+	var time2 = 0.15
+	transition_node.fade_out(time)
+	#$Transition.fade_out(time)
+	
+	await get_tree().create_timer(time).timeout
+	
+	get_tree().change_scene_to_file(file_path)
+	await get_tree().scene_changed
+	await get_tree().process_frame
+	
+	transition_node.fade_in(time2)
+	
+	#var b = transition_scene.instantiate()
+	#get_tree().root.add_child(b)
+	#b.fade_in()
+	
+	

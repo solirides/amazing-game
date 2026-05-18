@@ -1,5 +1,10 @@
 class_name Cards
 
+
+# NOTE: collision shape has a low priority for recieving mouse inputs
+# any control nodes in the scene will consume mouse inputs instead
+# set mouse filter to pass
+
 extends Area2D
 
 signal card_played(clicked_card: Cards, player_id: int, type: CardType)

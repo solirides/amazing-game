@@ -7,7 +7,7 @@ extends RigidBody2D
 @export var base_speed:float = 6.0
 @export var base_accel:float = 20
 @export var base_decel:float = 3
-@export var base_health:int = 100
+@export var base_health:int = 60
 @export var respawn_time:float = 4.0
 @export var base_ammo:int = 3
 
@@ -24,6 +24,7 @@ var theta = 0
 var can_move = true
 var alive_state = true
 var can_shoot = false
+var is_hacking = false
 
 var upgrades = {
 	"shield":0,

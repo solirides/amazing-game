@@ -43,6 +43,8 @@ color = Color(0.9, 0.20700002, 0.4842001, 1)
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="CriticalSpot" unique_id=2029185884]
 
+[node name="Marker2D" type="Marker2D" parent="CriticalSpot" unique_id=162470571]
+
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." unique_id=790185396]
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
