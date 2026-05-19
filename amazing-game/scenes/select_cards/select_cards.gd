@@ -9,7 +9,7 @@ signal upgrade_selected(player_id: int, type: Cards.CardType)
 var p1_has_played: bool = false
 var p2_has_played: bool = false
 
-var max_time: float = 10.0
+var max_time: float = 20.0
 
 var p1_cards: Array = []
 var p2_cards: Array = []
@@ -41,13 +41,12 @@ func _ready() -> void:
 	
 	# this is opposite of the current state since players will be swapped after card selection
 	if GameManager.swap_state == true:
-		$P1Role/Sprite2D.texture = GameManager.player1_turret_sprite
-		$P2Role/Sprite2D.texture = GameManager.player2_wall_sprite
+		$LabelP1/P1Role/Sprite2D.texture = GameManager.player1_turret_sprite
+		$LabelP2/P2Role/Sprite2D.texture = GameManager.player2_wall_sprite
 		
 	else:
-		$P1Role/Sprite2D.texture = GameManager.player1_wall_sprite
-		$P2Role/Sprite2D.texture = GameManager.player2_turret_sprite
-	
+		$LabelP1/P1Role/Sprite2D.texture = GameManager.player1_wall_sprite
+		$LabelP2/P2Role/Sprite2D.texture = GameManager.player2_turret_sprite
 	
 	var intro_tween = create_tween()
 	intro_tween.tween_property($DividingLine, "scale:y", 1.0, 1.5).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)

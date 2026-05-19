@@ -8,6 +8,7 @@ extends Node2D
 @onready var info_label = $Label2
 
 var select_cards_scene = preload("res://scenes/select_cards/select_cards.tscn")
+var game_over_scene = preload("res://scenes/game_over/game_over.tscn")
 
 var filled_circle_coords = []
 var filled_circle_hex = []
@@ -123,17 +124,20 @@ func _on_swap_players(state:bool):
 	pass
 
 func show_card_selection():
-
 	if game_stage != "card selection":
 		game_stage = "card selection"
 	else:
 		return
-		
+	
 	print("show card selection")
 	turret_node.can_move = false
 	wall_node.can_move = false
 	in_combat = false
 	circle_display.end_combat()
+	
+	if round_num >= 2:
+		end_game()
+		return
 	
 	var a = select_cards_scene.instantiate()
 	add_child(a)
@@ -175,6 +179,14 @@ func _on_turret_ammo_changed(ammo: int) -> void:
 	print(ammo)
 	camera.shake()
 	if ammo == 0:
+		await get_tree().create_timer(2.0).timeout
 		#camera.shake()
 		show_card_selection()
 		#advance_round()
+
+
+func end_game():
+	print("end game")
+	var a = game_over_scene.instantiate()
+	add_child(a)
+	

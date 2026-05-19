@@ -47,10 +47,13 @@ func swap_players(state:bool, force:bool=false):
 
 func swap_stats():
 	var stats = ["health", "shield", "bullet_damage", "speed", "bullet_speed"]
+	# stats with no base value
+	var tracking_stats = ["damage_taken", "death_count"]
 	var more_stats = []
 	for stat in stats:
 		more_stats.append("base_" + stat)
 	stats.append_array(more_stats)
+	stats.append_array(tracking_stats)
 	for stat in stats:
 		var temp = player1.get(stat)
 		player1.set(stat, player2.get(stat))

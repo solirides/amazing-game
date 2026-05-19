@@ -1,14 +1,16 @@
-[gd_scene format=3 uid="uid://cl7pof1fk2j3d"]
+[gd_scene format=3 uid="uid://cq4eoevtsmb6o"]
 
-[ext_resource type="Script" uid="uid://dhrqkc2wg66pj" path="res://scenes/select_cards/select_cards.gd" id="1_asv8b"]
-[ext_resource type="PackedScene" uid="uid://civa8dd8deecp" path="res://modules/cards/cards.tscn" id="2_qg2st"]
-[ext_resource type="Texture2D" uid="uid://83kovqwpjy1p" path="res://assets/textures/p1v1.png" id="3_h0lgk"]
-[ext_resource type="Texture2D" uid="uid://wr8lqm38ij8g" path="res://icon.svg" id="4_3j0q6"]
+[ext_resource type="Script" uid="uid://bteoqgd5lmqw8" path="res://scenes/game_over/game_over.gd" id="1_pjckc"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_h0lgk"]
 font_size = 20
 
-[node name="SelectCards" type="CanvasLayer" unique_id=514107963]
+[sub_resource type="LabelSettings" id="LabelSettings_3j056"]
+font_size = 36
+outline_size = 10
+outline_color = Color(0, 0, 0, 1)
+
+[node name="GameOver" type="CanvasLayer" unique_id=514107963]
 process_mode = 3
 layer = 100
 follow_viewport_enabled = true
@@ -21,8 +23,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-script = ExtResource("1_asv8b")
-card_scene = ExtResource("2_qg2st")
+script = ExtResource("1_pjckc")
 
 [node name="DividingLine" type="ColorRect" parent="Control" unique_id=1276173184]
 layout_mode = 1
@@ -90,11 +91,12 @@ offset_right = -1.5258789e-05
 offset_bottom = -40.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "use the mouse"
+text = "yipeee"
 label_settings = SubResource("LabelSettings_h0lgk")
 horizontal_alignment = 1
 
 [node name="TimerLabel" type="Label" parent="Control/DividingLine" unique_id=1946863747]
+visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -111,6 +113,26 @@ rotation = -0.2617994
 theme_override_colors/font_color = Color(0.38857287, 0.38857287, 0.38857287, 1)
 theme_override_font_sizes/font_size = 36
 text = "10"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Winner" type="Label" parent="Control/DividingLine" unique_id=1148044492]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -80.99727
+offset_top = -49.213074
+offset_right = 50.00273
+offset_bottom = 87.78693
+grow_horizontal = 2
+grow_vertical = 2
+rotation = -0.2617994
+text = "Winner:
+Player #"
+label_settings = SubResource("LabelSettings_3j056")
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -142,24 +164,8 @@ offset_top = 25.0
 offset_right = 415.0
 offset_bottom = 59.0
 theme_override_font_sizes/font_size = 24
-text = "next round:"
+text = "damage taken:"
 horizontal_alignment = 1
-
-[node name="Sprite2D" type="TextureRect" parent="Control/LabelP1/P1Role" unique_id=686017553]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -50.0
-offset_top = 20.0
-offset_right = 50.0
-offset_bottom = 120.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("3_h0lgk")
-expand_mode = 1
 
 [node name="LabelP2" type="Label" parent="Control" unique_id=1257981754]
 layout_mode = 1
@@ -194,24 +200,8 @@ grow_vertical = 0
 size_flags_horizontal = 0
 size_flags_vertical = 0
 theme_override_font_sizes/font_size = 24
-text = "next round:"
+text = "damage taken:"
 horizontal_alignment = 1
-
-[node name="Sprite2D" type="TextureRect" parent="Control/LabelP2/P2Role" unique_id=322593881]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -50.0
-offset_top = 20.0
-offset_right = 50.0
-offset_bottom = 120.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("4_3j0q6")
-expand_mode = 1
 
 [node name="SelectTimer" type="Timer" parent="Control" unique_id=871207302]
 one_shot = true

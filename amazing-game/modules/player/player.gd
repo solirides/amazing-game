@@ -26,6 +26,9 @@ var alive_state = true
 var can_shoot = false
 var is_hacking = false
 
+var damage_taken = 0
+var death_count = 0
+
 var upgrades = {
 	"shield":0,
 	"speed":0,
@@ -61,6 +64,8 @@ func damage(amount:int):
 	var real_damage = max(0, amount - shield)
 	
 	health -= real_damage
+	damage_taken += real_damage
+	
 	if health <= 0:
 		print("player dead")
 		die()
@@ -70,9 +75,17 @@ var modulate_tween:Tween
 func die():
 	if alive_state == false:
 		return
+	
+	#if GameManager.world.in_combat == true:
+	death_count += 1
+	print("death count: " + str(death_count))
+	#print(GameManager.world.in_combat)
+	
 	alive_state_changed.emit(false)
 	alive_state = false
 	can_move = false
+	
+	
 	
 	queue_respawn(respawn_time)
 

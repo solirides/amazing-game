@@ -23,4 +23,3 @@ func _physics_process(delta: float) -> void:
 		linear_velocity = lerp(linear_velocity, Vector2.ZERO, 2.0 * delta)
 		self.rotation = atan2(linear_velocity.y, linear_velocity.x)
 	
-	
