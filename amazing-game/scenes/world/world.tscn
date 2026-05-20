@@ -32,6 +32,7 @@ font_color = Color(0.728822, 0.728822, 0.728822, 1)
 
 [node name="World" type="Node2D" unique_id=345513547 node_paths=PackedStringArray("wall_node", "turret_node", "circle_display")]
 script = ExtResource("1_k0juu")
+total_rounds = 2
 wall_node = NodePath("Wall")
 turret_node = NodePath("Turret")
 circle_display = NodePath("CircleDisplay")
@@ -82,8 +83,8 @@ offset_right = 110.0
 offset_bottom = -86.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "turret: A+D, C or Space
-wall: J+L, N or Enter"
+text = "player 1: A+D, C or Space
+player 2: J+L, N or Enter"
 label_settings = SubResource("LabelSettings_k0juu")
 horizontal_alignment = 1
 vertical_alignment = 1

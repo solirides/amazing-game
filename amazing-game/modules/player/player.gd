@@ -1,7 +1,7 @@
 class_name Player
 extends RigidBody2D
 
-@export var base_bullet_speed = 1000
+@export var base_bullet_speed = 1200
 @export var base_bullet_damage:int = 20
 @export var base_shield:int = 0
 @export var base_speed:float = 6.0
@@ -37,7 +37,7 @@ var upgrades = {
 
 var upgrade_multipliers = {
 	"shield":30,
-	"speed":0.15,
+	"speed":0.08,
 	"damage":0.20
 }
 

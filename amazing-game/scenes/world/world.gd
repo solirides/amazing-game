@@ -139,6 +139,7 @@ func show_card_selection():
 	circle_display.end_combat()
 	
 	if round_num >= total_rounds:
+		GameManager.swap_players(!GameManager.swap_state)
 		end_game()
 		return
 	
