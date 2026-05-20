@@ -1,11 +1,14 @@
 extends Node2D
 
+@export var total_rounds:int = 6
+
 @export var wall_node:Node
 @export var turret_node:Node
 @export var circle_display:Node
 @export var circles = 0
 @onready var camera = $Camera2D
 @onready var info_label = $Label2
+
 
 var select_cards_scene = preload("res://scenes/select_cards/select_cards.tscn")
 var game_over_scene = preload("res://scenes/game_over/game_over.tscn")
@@ -135,7 +138,7 @@ func show_card_selection():
 	in_combat = false
 	circle_display.end_combat()
 	
-	if round_num >= 2:
+	if round_num >= total_rounds:
 		end_game()
 		return
 	
