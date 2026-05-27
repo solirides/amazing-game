@@ -112,6 +112,9 @@ func set_player_colors():
 		
 
 func _on_player_death():
+	
+	if in_combat:
+		$AudioStreamPlayer2.play()
 	#turret_node.queue_respawn()
 	show_card_selection()
 
@@ -127,6 +130,7 @@ func _on_swap_players(state:bool):
 	pass
 
 func show_card_selection():
+	GameManager.play_ring()
 	if game_stage != "card selection":
 		game_stage = "card selection"
 	else:
@@ -178,6 +182,7 @@ func start_combat(delay:float):
 	game_stage = "combat"
 	in_combat = true
 	circle_display.start_combat(delay)
+	$AudioStreamPlayer.play()
 
 func _on_turret_ammo_changed(ammo: int) -> void:
 	print(ammo)
@@ -188,9 +193,11 @@ func _on_turret_ammo_changed(ammo: int) -> void:
 		show_card_selection()
 		#advance_round()
 
-
 func end_game():
 	print("end game")
 	var a = game_over_scene.instantiate()
 	add_child(a)
+	
+	if $AudioStreamPlayer2.playing == false:
+		$AudioStreamPlayer2.play()
 	

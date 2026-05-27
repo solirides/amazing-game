@@ -87,9 +87,8 @@ func _on_body_entered(body: Node) -> void:
 			print("regular hit")
 			damage(body.damage)
 		
-		
 		body.queue_free()
-		
+		$AudioStreamPlayer.play()
 
 #func _on_critical_spot_body_entered(body: Node) -> void:
 	#print("critical collision")

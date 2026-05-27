@@ -2,11 +2,13 @@
 
 [ext_resource type="Script" uid="uid://b5dajo7xuf5e6" path="res://scenes/world/world.gd" id="1_k0juu"]
 [ext_resource type="PackedScene" uid="uid://b65jgvaki42my" path="res://modules/player/turret.tscn" id="1_nnsk1"]
+[ext_resource type="AudioStream" uid="uid://bb1sn4tgwuliu" path="res://assets/sounds/gong.wav" id="2_5qq27"]
 [ext_resource type="Shader" uid="uid://bac6h2uqtxcn3" path="res://assets/shaders/sunburst.gdshader" id="2_gb53w"]
 [ext_resource type="PackedScene" uid="uid://dyy8y5xftvvi3" path="res://modules/player/wall.tscn" id="2_rwgxs"]
 [ext_resource type="Script" uid="uid://cd4g7rhnnvep4" path="res://scenes/world/camera.gd" id="2_v5dby"]
 [ext_resource type="Script" uid="uid://bmt4rrbbbby3w" path="res://scenes/world/circle.gd" id="3_4wyf3"]
 [ext_resource type="Script" uid="uid://cgk8kopvx6vm4" path="res://scenes/world/background_circle.gd" id="3_bq33v"]
+[ext_resource type="AudioStream" uid="uid://3ix8xqd1jf8e" path="res://assets/sounds/shatter.wav" id="3_dlabj"]
 [ext_resource type="Script" uid="uid://60jkn7647itj" path="res://scenes/world/foreground_circle.gd" id="5_j2gmx"]
 [ext_resource type="Script" uid="uid://cyfvt1ht8toqp" path="res://scenes/world/health_bars.gd" id="6_t5ptc"]
 [ext_resource type="PackedScene" uid="uid://wd35i56nmnkx" path="res://modules/gui/gui.tscn" id="9_1yooq"]
@@ -32,10 +34,17 @@ font_color = Color(0.728822, 0.728822, 0.728822, 1)
 
 [node name="World" type="Node2D" unique_id=345513547 node_paths=PackedStringArray("wall_node", "turret_node", "circle_display")]
 script = ExtResource("1_k0juu")
-total_rounds = 2
 wall_node = NodePath("Wall")
 turret_node = NodePath("Turret")
 circle_display = NodePath("CircleDisplay")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=1697962266]
+stream = ExtResource("2_5qq27")
+max_polyphony = 2
+
+[node name="AudioStreamPlayer2" type="AudioStreamPlayer" parent="." unique_id=1107928695]
+stream = ExtResource("3_dlabj")
+max_polyphony = 2
 
 [node name="Background" type="CanvasLayer" parent="." unique_id=905452983]
 layer = -10

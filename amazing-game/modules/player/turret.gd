@@ -112,6 +112,7 @@ func shoot(damage:float):
 	ammo -= 1
 	ammo_changed.emit(ammo)
 	
+	$AudioStreamPlayer.play()
 #
 #func damage(amount:int):
 	#health -= amount

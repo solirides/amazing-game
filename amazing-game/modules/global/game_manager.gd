@@ -121,4 +121,6 @@ func switch_scene(file_path:String):
 	#get_tree().root.add_child(b)
 	#b.fade_in()
 	
-	
+
+func play_ring():
+	$AudioStreamPlayer.play()
