@@ -2,9 +2,44 @@
 
 [ext_resource type="Script" uid="uid://ucj81ftj21i" path="res://scenes/main_menu/main_menu.gd" id="1_l6cm7"]
 [ext_resource type="Theme" uid="uid://dn5mbxugl22di" path="res://assets/themes/menu.tres" id="2_ekxnf"]
+[ext_resource type="AudioStream" uid="uid://ihgvdpbq0d0l" path="res://assets/sounds/metal pipe.mp3" id="3_ob46e"]
+[ext_resource type="AudioStream" uid="uid://d2cqs022k8etu" path="res://assets/sounds/windows.mp3" id="4_uqeha"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_ekxnf"]
 font_size = 80
+
+[sub_resource type="SystemFont" id="SystemFont_uqeha"]
+font_names = PackedStringArray("Noto Sans", "Sans-Serif")
+
+[sub_resource type="LabelSettings" id="LabelSettings_uqeha"]
+font = SubResource("SystemFont_uqeha")
+font_size = 20
+font_color = Color(0.6452097, 0.6452098, 0.6452097, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uqeha"]
+bg_color = Color(0, 0.47058824, 0.84313726, 1)
+
+[sub_resource type="SystemFont" id="SystemFont_wem23"]
+font_names = PackedStringArray("Noto Sans", "Sans-Serif")
+
+[sub_resource type="LabelSettings" id="LabelSettings_3ovsr"]
+font = SubResource("SystemFont_wem23")
+font_size = 130
+
+[sub_resource type="SystemFont" id="SystemFont_5seab"]
+font_names = PackedStringArray("Noto Sans", "Sans-Serif")
+font_weight = 300
+
+[sub_resource type="LabelSettings" id="LabelSettings_4xg86"]
+font = SubResource("SystemFont_5seab")
+font_size = 32
+
+[sub_resource type="SystemFont" id="SystemFont_thkx5"]
+font_names = PackedStringArray("Noto Sans", "Sans-Serif")
+font_weight = 300
+
+[sub_resource type="LabelSettings" id="LabelSettings_x2yjq"]
+font = SubResource("SystemFont_thkx5")
 
 [node name="MainMenu" type="Control" unique_id=301014197]
 layout_mode = 3
@@ -14,6 +49,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_l6cm7")
+fun = false
 
 [node name="Label" type="Label" parent="." unique_id=190611520]
 layout_mode = 1
@@ -25,6 +61,20 @@ grow_horizontal = 2
 text = "a very amazing game"
 label_settings = SubResource("LabelSettings_ekxnf")
 horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="." unique_id=930660890]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 166.0
+offset_right = -176.0
+offset_bottom = 276.0
+grow_horizontal = 2
+text = "\"If you are strong, appear weak. But 
+if you are weak, 'tis a skill issue.\"
+- Sun Tzu, The Art of War"
+label_settings = SubResource("LabelSettings_uqeha")
+horizontal_alignment = 2
 
 [node name="CenterContainer" type="VBoxContainer" parent="." unique_id=44965680]
 layout_mode = 1
@@ -42,6 +92,7 @@ grow_vertical = 2
 theme_override_constants/separation = 20
 
 [node name="Start" type="Button" parent="CenterContainer" unique_id=1002581766]
+custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 theme = ExtResource("2_ekxnf")
 text = "start"
@@ -55,6 +106,73 @@ text = "don't start"
 layout_mode = 2
 theme = ExtResource("2_ekxnf")
 text = "mystery button"
+
+[node name="BlueScreen" type="Panel" parent="." unique_id=647284467]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_uqeha")
+
+[node name="Control" type="Control" parent="BlueScreen" unique_id=613891715]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 80.0
+offset_top = 80.0
+offset_right = -80.0
+offset_bottom = -80.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="BlueScreen/Control" unique_id=1366220035]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="BlueScreen/Control/VBoxContainer" unique_id=1833756893]
+layout_mode = 2
+text = ":("
+label_settings = SubResource("LabelSettings_3ovsr")
+
+[node name="Label2" type="Label" parent="BlueScreen/Control/VBoxContainer" unique_id=322378825]
+layout_mode = 2
+text = "Your PC ran into a problem and needs to restart. We're just collecting some error info, and then we'll restart for you."
+label_settings = SubResource("LabelSettings_4xg86")
+autowrap_mode = 2
+
+[node name="Control" type="Control" parent="BlueScreen/Control/VBoxContainer" unique_id=2132544091]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="Label3" type="Label" parent="BlueScreen/Control/VBoxContainer" unique_id=644434777]
+layout_mode = 2
+text = "2% complete"
+label_settings = SubResource("LabelSettings_4xg86")
+autowrap_mode = 2
+
+[node name="Control2" type="Control" parent="BlueScreen/Control/VBoxContainer" unique_id=2011886250]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="Label4" type="Label" parent="BlueScreen/Control/VBoxContainer" unique_id=107169380]
+layout_mode = 2
+text = "For more information about this issue and possible fixes, don't press the mystery button so much next time."
+label_settings = SubResource("LabelSettings_x2yjq")
+autowrap_mode = 2
+
+[node name="Pipe" type="AudioStreamPlayer" parent="." unique_id=89960459]
+stream = ExtResource("3_ob46e")
+
+[node name="Windows" type="AudioStreamPlayer" parent="." unique_id=105374842]
+stream = ExtResource("4_uqeha")
 
 [connection signal="pressed" from="CenterContainer/Start" to="." method="_on_start_pressed"]
 [connection signal="pressed" from="CenterContainer/Quit" to="." method="_on_quit_pressed"]
