@@ -36,6 +36,11 @@ func _ready() -> void:
 	
 	var screen_size = get_viewport().get_visible_rect().size
 	
+	$LabelP1/StatsP1.text = "damage taken: \n" + str(GameManager.player1.damage_taken)
+	$LabelP1/StatsP1.text += "\ndeaths: \n" + str(GameManager.player1.death_count)
+	$LabelP2/StatsP2.text = "damage taken: \n" + str(GameManager.player2.damage_taken)
+	$LabelP2/StatsP2.text += "\ndeaths: \n" + str(GameManager.player2.death_count)
+	
 	$SpawnPoint1.global_position = Vector2(screen_size.x / 4.0, screen_size.y / 2.0) - screen_size / 2.0
 	$SpawnPoint2.global_position = Vector2(screen_size.x * 3.0 / 4.0, screen_size.y / 2.0) - screen_size / 2.0
 	

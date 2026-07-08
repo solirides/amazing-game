@@ -161,6 +161,15 @@ grow_vertical = 2
 texture = ExtResource("3_h0lgk")
 expand_mode = 1
 
+[node name="StatsP1" type="Label" parent="Control/LabelP1" unique_id=1595225257]
+layout_mode = 0
+offset_left = -37.0
+offset_top = 64.0
+offset_right = 135.0
+offset_bottom = 98.0
+theme_override_font_sizes/font_size = 24
+text = "damage taken:"
+
 [node name="LabelP2" type="Label" parent="Control" unique_id=1257981754]
 layout_mode = 1
 anchors_preset = -1
@@ -212,6 +221,16 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("4_3j0q6")
 expand_mode = 1
+
+[node name="StatsP2" type="Label" parent="Control/LabelP2" unique_id=613743029]
+layout_mode = 0
+offset_left = 16.0
+offset_top = -143.0
+offset_right = 188.0
+offset_bottom = -109.0
+theme_override_font_sizes/font_size = 24
+text = "damage taken:"
+horizontal_alignment = 2
 
 [node name="SelectTimer" type="Timer" parent="Control" unique_id=871207302]
 one_shot = true
